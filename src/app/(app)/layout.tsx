@@ -1,5 +1,5 @@
 import Sidebar from "@/components/Sidebar";
-
+export const dynamic = "force-dynamic";
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ display:"flex", minHeight:"100vh" }}>
@@ -8,4 +8,4 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-   export const dynamic = "force-dynamic";
+   
