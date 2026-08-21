@@ -5,11 +5,9 @@ export async function middleware(request: NextRequest) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  console.log("=== SUPABASE ENV CHECK ===");
-  console.log("SUPABASE URL exists:", !!supabaseUrl);
-  console.log("SUPABASE KEY exists:", !!supabaseKey);
-  console.log("SUPABASE URL:", supabaseUrl ? "SET" : "MISSING");
-  console.log("SUPABASE KEY:", supabaseKey ? "SET" : "MISSING");
+ const supabase = createServerClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 
   let response = NextResponse.next({
     request: { headers: request.headers },
