@@ -1,0 +1,14 @@
+{
+  "title": "Lead engine",
+  "description": "Generates targeted leads by capturing and organizing potential client information, helping businesses streamline outreach and boost sales efficiency.",
+  "robots": {
+    "index": false
+  },
+  "icons": {
+    "icon": "/.figma/make/favicon.png"
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

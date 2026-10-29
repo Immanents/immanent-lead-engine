@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+
+:root {
+  color-scheme: dark;
+  --c-bg: #050b1f;
+  --c-surface: #0a1433;
+  --c-surface-2: #0f1c42;
+  --c-surface-3: #152755;
+  --c-edge: #1c3160;
+  --c-edge-2: #263f78;
+  --c-ink: #e2e8f0;
+  --c-ink-2: #94a3b8;
+  --c-ink-3: #4a5568;
+  --c-primary-l: #fb923c;
+  --t-red: #f87171; --t-red-bg: #3b1212; --t-red-bd: #5c1515;
+  --t-amber: #fbbf24; --t-amber-bg: #3d2e0f; --t-amber-bd: #5c4015;
+  --t-green: #34d399; --t-green-bg: #0d2e1e; --t-green-bd: #0f4d2e;
+  --t-orange-bg: #4a2410;
+  --t-blue: #60a5fa; --t-blue-bg: #1e3a5f;
+}
+
+:root.light {
+  color-scheme: light;
+  --c-bg: #f1f5fc;
+  --c-surface: #ffffff;
+  --c-surface-2: #eaf0fb;
+  --c-surface-3: #dbe5f7;
+  --c-edge: #d3ddf0;
+  --c-edge-2: #b5c5e3;
+  --c-ink: #0b1b44;
+  --c-ink-2: #3d4f7a;
+  --c-ink-3: #6b7ba3;
+  --c-primary-l: #ea580c;
+  --t-red: #dc2626; --t-red-bg: #fee2e2; --t-red-bd: #fecaca;
+  --t-amber: #b45309; --t-amber-bg: #fef3c7; --t-amber-bd: #fde68a;
+  --t-green: #047857; --t-green-bg: #d1fae5; --t-green-bd: #a7f3d0;
+  --t-orange-bg: #ffedd5;
+  --t-blue: #1d4ed8; --t-blue-bg: #dbeafe;
+}
+
+html, body, aside, header, main { transition: background-color 0.2s ease, color 0.2s ease; }
+
+@theme {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-surface-3: var(--c-surface-3);
+  --color-edge: var(--c-edge);
+  --color-edge-2: var(--c-edge-2);
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-ink-3: var(--c-ink-3);
+  --color-primary: #f97316;
+  --color-primary-l: var(--c-primary-l);
+  --color-emerald: #10b981;
+  --color-amber: #f59e0b;
+  --color-rose: #f43f5e;
+  --color-sky: #38bdf8;
+  --color-secondary: #2563eb;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'Menlo', monospace;
+}
+
+html,
+body {
+  background-color: var(--c-bg);
+  color: var(--c-ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-edge) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c-edge);
+  border-radius: 3px;
+}
+
+/* ── Responsive layout ─────────────────────────────────── */
+
+/* Desktop: sidebar always visible, mobile header hidden */
+@media (min-width: 768px) {
+  .mobile-sidebar {
+    transform: translateX(0) !important;
+  }
+  .mobile-header {
+    display: none !important;
+  }
+  .desktop-only {
+    display: flex !important;
+  }
+}
+
+/* Mobile: sidebar hidden off-screen unless .mobileOpen, header shown */
+@media (max-width: 767px) {
+  .mobile-sidebar {
+    transform: translateX(-100%);
+    width: 220px !important;
+  }
+  .mobile-sidebar[data-open='true'] {
+    transform: translateX(0);
+  }
+  .mobile-header {
+    display: flex !important;
+  }
+  .app-main {
+    margin-left: 0 !important;
+    padding: 72px 16px 24px !important;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  .viewas-banner {
+    margin-left: 0 !important;
+    top: 52px !important;
+    padding: 8px 16px !important;
+  }
+}
