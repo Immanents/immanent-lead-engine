@@ -137,7 +137,7 @@ export default function Sidebar({
               style={{
                 width: 28,
                 height: 28,
-                background: '#f97316',
+                background: 'var(--c-primary-l)',
                 borderRadius: 6,
                 display: 'flex',
                 alignItems: 'center',
@@ -164,7 +164,7 @@ export default function Sidebar({
                   style={{
                     fontSize: 10,
                     color: 'var(--c-ink-3)',
-                    fontFamily: 'DM Mono, monospace',
+
                     whiteSpace: 'nowrap',
                   }}
                 >
@@ -212,8 +212,8 @@ export default function Sidebar({
                   justifyContent: collapsed ? 'center' : 'flex-start',
                   padding: collapsed ? '9px 0' : '9px 10px',
                   borderRadius: 6,
-                  background: isActive ? 'var(--c-surface-3)' : 'transparent',
-                  color: isActive ? 'var(--c-ink)' : '#64748b',
+                  background: isActive ? 'var(--t-blue-bg)' : 'transparent',
+                  color: isActive ? 'var(--c-ink)' : 'var(--c-ink-2)',
                   cursor: 'pointer',
                   border: 'none',
                   position: 'relative',
@@ -233,7 +233,7 @@ export default function Sidebar({
                   if (!isActive) {
                     const el = e.currentTarget as HTMLElement
                     el.style.background = 'transparent'
-                    el.style.color = '#64748b'
+                    el.style.color = 'var(--c-ink-2)'
                   }
                 }}
               >
@@ -245,7 +245,7 @@ export default function Sidebar({
                       top: 6,
                       bottom: 6,
                       width: 3,
-                      background: '#f97316',
+                      background: 'var(--c-primary-l)',
                       borderRadius: '0 2px 2px 0',
                     }}
                   />
@@ -257,7 +257,7 @@ export default function Sidebar({
                 {hasBadge && !collapsed && (
                   <span
                     style={{
-                      background: '#f97316',
+                      background: 'var(--c-primary-l)',
                       color: '#fff',
                       borderRadius: 9999,
                       minWidth: 18,
@@ -266,7 +266,7 @@ export default function Sidebar({
                       alignItems: 'center',
                       justifyContent: 'center',
                       fontSize: 10,
-                      fontFamily: 'DM Mono, monospace',
+
                       paddingInline: 4,
                     }}
                   >
@@ -282,7 +282,7 @@ export default function Sidebar({
                       width: 7,
                       height: 7,
                       borderRadius: '50%',
-                      background: '#f97316',
+                      background: 'var(--c-primary-l)',
                     }}
                   />
                 )}
