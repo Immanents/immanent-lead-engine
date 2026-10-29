@@ -43,7 +43,7 @@ function ToastStack({ toasts, onRemove }: { toasts: Toast[]; onRemove: (id: numb
             borderRadius: 8, padding: '10px 14px',
             color: t.type === 'error' ? 'var(--t-red)' : 'var(--t-green)',
             fontSize: 13, minWidth: 260, maxWidth: 360,
-            boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+            boxShadow: '0 8px 28px rgba(10,11,13,0.12)',
           }}
         >
           {t.type === 'error'
@@ -74,11 +74,11 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>Settings</h1>
-        <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>Application settings and preferences</p>
+        <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>Settings</h1>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>Application settings and preferences</p>
       </div>
       <div className="rounded-lg px-5 py-4" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-        <h2 className="text-xs font-medium mb-4" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+        <h2 className="text-xs font-medium mb-4" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Follow-up Sequence
         </h2>
         <div className="space-y-3">
@@ -90,7 +90,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
             { day: 'No response', label: 'Move to Nurture' },
           ].map((row) => (
             <div key={row.day} className="flex items-center gap-4">
-              <span className="text-xs w-24 flex-shrink-0" style={{ color: '#f97316', fontFamily: 'DM Mono, monospace' }}>
+              <span className="text-xs w-24 flex-shrink-0" style={{ color: 'var(--c-primary-l)' }}>
                 {row.day}
               </span>
               <span className="text-sm" style={{ color: 'var(--c-ink-2)' }}>{row.label}</span>
@@ -102,12 +102,12 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
         </p>
       </div>
       <div className="rounded-lg px-5 py-4" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Profile
         </h2>
         <div className="flex items-center gap-3">
           <div className="text-sm font-medium" style={{ color: 'var(--c-ink)' }}>{displayName}</div>
-          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: isAdmin ? 'var(--t-orange-bg)' : 'var(--t-blue-bg)', color: isAdmin ? 'var(--c-primary-l)' : 'var(--t-blue)', fontFamily: 'DM Mono, monospace' }}>
+          <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: isAdmin ? 'var(--t-orange-bg)' : 'var(--t-blue-bg)', color: isAdmin ? 'var(--c-primary-l)' : 'var(--t-blue)' }}>
             {isAdmin ? 'Admin' : profile ? 'Sub account' : 'Account'}
           </span>
         </div>
@@ -134,7 +134,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
               type="submit"
               disabled={savingName}
               className="text-sm px-3 py-1.5 rounded-md"
-              style={{ background: '#f97316', color: '#fff', border: 'none', cursor: 'pointer', opacity: savingName ? 0.6 : 1 }}
+              style={{ background: 'var(--c-primary-l)', color: '#fff', border: 'none', cursor: 'pointer', opacity: savingName ? 0.6 : 1 }}
             >
               Save name
             </button>
@@ -143,7 +143,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
       </div>
       {isAdmin && (
         <div className="rounded-lg px-5 py-4" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-          <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+          <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             Team ({team.length})
           </h2>
           <div className="space-y-2">
@@ -154,7 +154,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
                   <div className="text-xs truncate" style={{ color: 'var(--c-ink-3)' }}>{m.email}</div>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0">
-                  <span className="text-xs" style={{ color: m.role === 'admin' ? 'var(--c-primary-l)' : 'var(--t-blue)', fontFamily: 'DM Mono, monospace' }}>
+                  <span className="text-xs" style={{ color: m.role === 'admin' ? 'var(--c-primary-l)' : 'var(--t-blue)' }}>
                     {m.role === 'admin' ? 'Admin' : 'Sub'}
                   </span>
                   {m.id !== selfId && (
@@ -162,7 +162,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
                       onClick={() => onViewAs(m)}
                       className="text-xs px-2.5 py-1 rounded-md"
                       style={{
-                        background: viewingId === m.id ? '#f97316' : 'var(--c-surface-2)',
+                        background: viewingId === m.id ? 'var(--c-primary-l)' : 'var(--c-surface-2)',
                         color: viewingId === m.id ? '#fff' : 'var(--c-ink-2)',
                         border: '1px solid var(--c-edge)',
                         cursor: 'pointer',
@@ -178,14 +178,14 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
         </div>
       )}
       <div className="rounded-lg px-5 py-4" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Notifications
         </h2>
         <p className="text-sm mb-3" style={{ color: 'var(--c-ink-2)' }}>
           Get a desktop alert when a new message arrives while this tab is in the background.
         </p>
         {notifPerm === 'granted' ? (
-          <span className="text-xs" style={{ color: 'var(--t-green)', fontFamily: 'DM Mono, monospace' }}>Enabled</span>
+          <span className="text-xs" style={{ color: 'var(--t-green)' }}>Enabled</span>
         ) : notifPerm === 'denied' ? (
           <span className="text-xs" style={{ color: 'var(--t-red)' }}>Blocked in your browser. Allow notifications for this site in the address bar settings.</span>
         ) : notifPerm === 'unsupported' ? (
@@ -194,14 +194,14 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
           <button
             onClick={async () => setNotifPerm(await Notification.requestPermission())}
             className="text-sm px-3 py-1.5 rounded-md"
-            style={{ background: '#f97316', color: '#fff', border: 'none', cursor: 'pointer' }}
+            style={{ background: 'var(--c-primary-l)', color: '#fff', border: 'none', cursor: 'pointer' }}
           >
             Enable notifications
           </button>
         )}
       </div>
       <div className="rounded-lg px-5 py-4" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Appearance
         </h2>
         <div className="inline-flex rounded-md p-0.5" style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)' }}>
@@ -212,7 +212,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
               aria-pressed={theme === id}
               className="flex items-center gap-2 text-sm px-3 py-1.5 rounded"
               style={{
-                background: theme === id ? '#f97316' : 'transparent',
+                background: theme === id ? 'var(--c-primary-l)' : 'transparent',
                 color: theme === id ? '#fff' : 'var(--c-ink-2)',
                 border: 'none',
                 cursor: 'pointer',
@@ -225,7 +225,7 @@ function SettingsView({ onSignOut, profile, displayName, onViewAs, viewingId, se
         </div>
       </div>
       <div className="rounded-lg px-5 py-4" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+        <h2 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Account
         </h2>
         <button
@@ -250,13 +250,13 @@ function LoadingScreen() {
             width: 40,
             height: 40,
             border: '2px solid var(--c-edge)',
-            borderTopColor: '#f97316',
+            borderTopColor: 'var(--c-primary-l)',
             borderRadius: '50%',
             animation: 'spin 0.8s linear infinite',
             margin: '0 auto 16px',
           }}
         />
-        <p style={{ fontSize: 13, color: 'var(--c-ink-3)', fontFamily: 'Inter, sans-serif' }}>Loading…</p>
+        <p style={{ fontSize: 13, color: 'var(--c-ink-3)' }}>Loading…</p>
       </div>
     </div>
   )
@@ -654,7 +654,7 @@ export default function App() {
           </svg>
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <div style={{ width: 22, height: 22, background: '#f97316', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: 22, height: 22, background: 'var(--c-primary-l)', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
             </svg>
@@ -670,7 +670,7 @@ export default function App() {
           {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
         </button>
         {pendingOutreach.length > 0 ? (
-          <span style={{ background: '#f97316', color: '#fff', borderRadius: 9999, minWidth: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontFamily: 'DM Mono, monospace' }}>
+          <span style={{ background: 'var(--c-primary-l)', color: '#fff', borderRadius: 9999, minWidth: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10 }}>
             {pendingOutreach.length}
           </span>
         ) : null}
@@ -683,7 +683,7 @@ export default function App() {
           style={{
             marginLeft: sidebarWidth,
             position: 'sticky', top: 0, zIndex: 25,
-            background: 'var(--t-orange-bg)', borderBottom: '1px solid #f97316',
+            background: 'var(--t-orange-bg)', borderBottom: '1px solid var(--c-primary-l)',
             padding: '8px 32px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12,
             fontSize: 13, color: 'var(--c-ink)', transition: 'margin-left 0.2s ease',
           }}
@@ -694,7 +694,7 @@ export default function App() {
           <button
             onClick={() => handleViewAs(null)}
             className="text-xs px-3 py-1 rounded-md"
-            style={{ background: '#f97316', color: '#fff', border: 'none', cursor: 'pointer', flexShrink: 0 }}
+            style={{ background: 'var(--c-primary-l)', color: '#fff', border: 'none', cursor: 'pointer', flexShrink: 0 }}
           >
             Back to my workspace
           </button>
@@ -816,14 +816,14 @@ export default function App() {
           background: 'var(--t-amber-bg)', borderTop: '1px solid var(--t-amber-bd)',
           padding: '12px 24px', display: 'flex', alignItems: 'center', gap: 12,
         }}>
-          <XCircle size={16} style={{ color: '#f59e0b', flexShrink: 0 }} />
-          <p style={{ fontSize: 13, color: '#f59e0b', flex: 1 }}>
+          <XCircle size={16} style={{ color: 'var(--t-amber)', flexShrink: 0 }} />
+          <p style={{ fontSize: 13, color: 'var(--t-amber)', flex: 1 }}>
             <strong>Database not set up.</strong> Leads and data will not save until you run the schema SQL in your{' '}
             <a href="https://supabase.com/dashboard" target="_blank" rel="noreferrer" style={{ color: 'var(--t-amber)', textDecoration: 'underline' }}>
               Supabase SQL Editor
             </a>.
           </p>
-          <button onClick={() => setDbReady(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#f59e0b', padding: 0 }}>
+          <button onClick={() => setDbReady(true)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--t-amber)', padding: 0 }}>
             <X size={16} />
           </button>
         </div>
