@@ -7,27 +7,141 @@ const corsHeaders = {
 const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-// Block private/internal network targets to prevent SSRF
-function isBlockedUrl(raw: string): boolean {
+function isBlockedIPv4(address: string): boolean {
+  const octets = address.split(".").map(Number)
+  if (octets.length !== 4 || octets.some((part) => !Number.isInteger(part) || part < 0 || part > 255)) {
+    return true
+  }
+  const [a, b, c] = octets
+  return a === 0 || a === 10 || a === 127 || a >= 224 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && (b === 0 || b === 168)) ||
+    (a === 192 && b === 88 && c === 99) ||
+    (a === 198 && (b === 18 || b === 19 || (b === 51 && c === 100))) ||
+    (a === 203 && b === 0 && c === 113)
+}
+
+function parseIPv6(host: string): number[] | null {
+  const normalized = host.toLowerCase().replace(/^\[|\]$/g, "")
+  if (!normalized.includes(":")) return null
+
+  let value = normalized
+  const ipv4Tail = value.match(/(?:^|:)(\d{1,3}(?:\.\d{1,3}){3})$/)
+  if (ipv4Tail) {
+    const octets = ipv4Tail[1].split(".").map(Number)
+    if (octets.some((part) => part < 0 || part > 255)) return []
+    value = value.slice(0, -ipv4Tail[1].length) +
+      ((octets[0] << 8) | octets[1]).toString(16) + ":" +
+      ((octets[2] << 8) | octets[3]).toString(16)
+  }
+
+  const halves = value.split("::")
+  if (halves.length > 2) return []
+  const left = halves[0] ? halves[0].split(":") : []
+  const right = halves.length === 2 && halves[1] ? halves[1].split(":") : []
+  const groups = [...left, ...right].map((part) => /^[0-9a-f]{1,4}$/.test(part) ? parseInt(part, 16) : NaN)
+  if (groups.some(Number.isNaN)) return []
+  if (halves.length === 1) return groups.length === 8 ? groups : []
+  const missing = 8 - groups.length
+  return missing < 1 ? [] : [...left.map((part) => parseInt(part, 16)), ...Array(missing).fill(0), ...right.map((part) => parseInt(part, 16))]
+}
+
+function isBlockedIPv6(groups: number[]): boolean {
+  if (groups.length !== 8) return true
+  const allZero = groups.every((part) => part === 0)
+  if (allZero || (groups.slice(0, 7).every((part) => part === 0) && groups[7] === 1)) return true
+
+  const mappedIPv4 = groups.slice(0, 5).every((part) => part === 0) && groups[5] === 0xffff
+  if (mappedIPv4) {
+    return isBlockedIPv4(`${groups[6] >> 8}.${groups[6] & 255}.${groups[7] >> 8}.${groups[7] & 255}`)
+  }
+
+  // Only global-unicast IPv6 is accepted. This also rejects ULA, link-local,
+  // multicast, unspecified, and other non-routable/special-use ranges.
+  if ((groups[0] & 0xe000) !== 0x2000) return true
+  if (groups[0] === 0x2001 && (groups[1] <= 0x01ff || groups[1] === 0x0db8)) return true
+
+  // Reject translation and tunnelling prefixes that can encode an IPv4 target.
+  const nat64WellKnown = groups[0] === 0x0064 && groups[1] === 0xff9b && groups.slice(2, 6).every((part) => part === 0)
+  const nat64Local = groups[0] === 0x0064 && groups[1] === 0xff9b && groups[2] === 0x0001
+  if (nat64WellKnown || nat64Local || groups[0] === 0x2002) return true
+  return false
+}
+
+function isBlockedAddress(host: string): boolean {
+  const ipv6 = parseIPv6(host)
+  if (ipv6) return isBlockedIPv6(ipv6)
+  if (/^[\d.]+$/.test(host)) return isBlockedIPv4(host)
+  return false
+}
+
+// Reject private literals and hostnames that currently resolve to any private
+// or special-use address. Redirects are checked separately before each request.
+async function isBlockedUrl(raw: string): Promise<boolean> {
   try {
     const url = new URL(raw)
     if (!["http:", "https:"].includes(url.protocol)) return true
-    const h = url.hostname.toLowerCase()
-    if (h === "localhost" || h === "::1") return true
-    const oct = h.split(".").map(Number)
-    if (oct.length === 4 && !oct.some(isNaN)) {
-      const [a, b] = oct
-      if (a === 10) return true
-      if (a === 127) return true
-      if (a === 0) return true
-      if (a === 172 && b >= 16 && b <= 31) return true
-      if (a === 192 && b === 168) return true
-      if (a === 169 && b === 254) return true // AWS metadata, link-local
-    }
-    return false
+    if (url.username || url.password) return true
+    if (url.port && url.port !== (url.protocol === "https:" ? "443" : "80")) return true
+    const host = url.hostname.toLowerCase().replace(/\.$/, "")
+    if (!host || host === "localhost" || host.endsWith(".localhost") || isBlockedAddress(host)) return true
+    if (parseIPv6(host) || /^[\d.]+$/.test(host)) return false
+
+    const [ipv4, ipv6] = await Promise.all([
+      Deno.resolveDns(host, "A").catch(() => [] as string[]),
+      Deno.resolveDns(host, "AAAA").catch(() => [] as string[]),
+    ])
+    const addresses = [...ipv4, ...ipv6]
+    return addresses.length === 0 || addresses.some(isBlockedAddress)
   } catch {
     return true
   }
+}
+
+async function fetchPublicWebsite(raw: string): Promise<Response> {
+  let current = new URL(raw)
+  const signal = AbortSignal.timeout(6000)
+  for (let redirects = 0; redirects <= 3; redirects++) {
+    if (await isBlockedUrl(current.href)) throw new Error("Blocked website address")
+    const response = await fetch(current.href, {
+      redirect: "manual",
+      signal,
+      headers: { "User-Agent": "ImmanentLeadBot/1.0" },
+    })
+    if (![301, 302, 303, 307, 308].includes(response.status)) return response
+    const location = response.headers.get("location")
+    await response.body?.cancel()
+    if (!location || redirects === 3) throw new Error("Website redirected too many times")
+    current = new URL(location, current)
+  }
+  throw new Error("Website redirected too many times")
+}
+
+async function readLimitedText(response: Response, maxBytes: number): Promise<string> {
+  if (!response.body) return ""
+  const reader = response.body.getReader()
+  const decoder = new TextDecoder()
+  let text = ""
+  let totalBytes = 0
+  while (true) {
+    const { done, value } = await reader.read()
+    if (done) break
+    const remaining = maxBytes - totalBytes
+    if (remaining <= 0) {
+      await reader.cancel()
+      break
+    }
+    const chunk = value.byteLength > remaining ? value.slice(0, remaining) : value
+    totalBytes += chunk.byteLength
+    text += decoder.decode(chunk, { stream: true })
+    if (chunk.byteLength < value.byteLength) {
+      await reader.cancel()
+      break
+    }
+  }
+  return text + decoder.decode()
 }
 
 
@@ -381,16 +495,13 @@ Return ONLY valid JSON in this exact structure:
       if (!/^https?:\/\//i.test(urlToFetch))
         urlToFetch = "https://" + urlToFetch
 
-      if (isBlockedUrl(urlToFetch)) {
+      if (await isBlockedUrl(urlToFetch)) {
         websiteContent = "Website URL is not accessible from this server."
       } else {
         try {
-          const webRes = await fetch(urlToFetch, {
-            signal: AbortSignal.timeout(6000),
-            headers: { "User-Agent": "ImmanentLeadBot/1.0" },
-          })
+          const webRes = await fetchPublicWebsite(urlToFetch)
           if (webRes.ok) {
-            const html = await webRes.text()
+            const html = await readLimitedText(webRes, 1024 * 1024)
             websiteContent = html
               .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, " ")
               .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, " ")
