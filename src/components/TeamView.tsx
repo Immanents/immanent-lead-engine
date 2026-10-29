@@ -39,9 +39,9 @@ function Receipt({ state, title }: { state: 'pending' | 'failed' | 'sent' | 'del
 const CARD = { background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }
 const INPUT = {
   background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink)',
-  borderRadius: 8, padding: '8px 12px', fontSize: 13, outline: 'none', fontFamily: 'Inter, sans-serif', minWidth: 0,
+  borderRadius: 8, padding: '8px 12px', fontSize: 13, outline: 'none', minWidth: 0,
 }
-const BTN = { background: '#f97316', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 13, cursor: 'pointer' }
+const BTN = { background: 'var(--c-primary-l)', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 13, cursor: 'pointer' }
 
 export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInfo }: Props) {
   const [teams, setTeams] = useState<Team[] | null>(null)
@@ -222,7 +222,7 @@ export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInf
     <div className="space-y-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>Team</h1>
+          <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>Team</h1>
           <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-3)' }}>
             {isAdmin ? 'Admin view: you can read every team and its messages' : 'Create a team, add accounts by email, and chat together'}
           </p>
@@ -261,7 +261,7 @@ export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInf
               onClick={() => setActiveId(t.id)}
               className="text-sm px-3 py-1.5 rounded-md"
               style={{
-                background: t.id === activeId ? '#f97316' : 'var(--c-surface)',
+                background: t.id === activeId ? 'var(--c-primary-l)' : 'var(--c-surface)',
                 color: t.id === activeId ? '#fff' : 'var(--c-ink-2)',
                 border: '1px solid var(--c-edge)',
                 cursor: 'pointer',
@@ -281,7 +281,7 @@ export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInf
           >
             <div className="px-4 py-3" style={{ borderBottom: '1px solid var(--c-edge)' }}>
               <div className="text-sm font-semibold truncate" style={{ color: 'var(--c-ink)' }}>{active.name}</div>
-              <div className="text-xs" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>
+              <div className="text-xs" style={{ color: 'var(--c-ink-3)' }}>
                 {members.length} member{members.length === 1 ? '' : 's'}
               </div>
             </div>
@@ -296,14 +296,14 @@ export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInf
                       <div className="flex items-center justify-center rounded-full" style={{ width: 30, height: 30, background: 'var(--c-edge-2)', color: 'var(--c-primary-l)', fontSize: 11, fontWeight: 600 }}>
                         {initials(name)}
                       </div>
-                      <span style={{ position: 'absolute', right: -1, bottom: -1, width: 10, height: 10, borderRadius: '50%', background: m.user_id === meId || online ? '#10b981' : 'var(--c-ink-3)', border: '2px solid var(--c-surface)' }} />
+                      <span style={{ position: 'absolute', right: -1, bottom: -1, width: 10, height: 10, borderRadius: '50%', background: m.user_id === meId || online ? 'var(--t-green)' : 'var(--c-ink-3)', border: '2px solid var(--c-surface)' }} />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="text-sm truncate flex items-center gap-1" style={{ color: 'var(--c-ink)' }}>
                         {name}{m.user_id === meId && <span style={{ color: 'var(--c-ink-3)' }}> (you)</span>}
                         {m.user_id === active.leader_id && <Crown size={12} style={{ color: 'var(--c-primary-l)', flexShrink: 0 }} aria-label="Team leader" />}
                       </div>
-                      <div className="text-xs" style={{ color: m.user_id === meId || online ? '#10b981' : 'var(--c-ink-3)' }}>
+                      <div className="text-xs" style={{ color: m.user_id === meId || online ? 'var(--t-green)' : 'var(--c-ink-3)' }}>
                         {m.user_id === meId || online ? 'Online' : 'Offline'}
                       </div>
                     </div>
@@ -362,12 +362,12 @@ export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInf
                     <div
                       style={{
                         maxWidth: '78%', padding: '8px 12px', borderRadius: 12, fontSize: 13, lineHeight: 1.5,
-                        background: mine ? '#f97316' : 'var(--c-surface-2)', color: mine ? '#fff' : 'var(--c-ink)',
+                        background: mine ? 'var(--c-primary-l)' : 'var(--c-surface-2)', color: mine ? '#fff' : 'var(--c-ink)',
                         border: mine ? 'none' : '1px solid var(--c-edge)', whiteSpace: 'pre-wrap', overflowWrap: 'anywhere',
                       }}
                     >
                       {m.body}
-                      <div className="flex items-center justify-end gap-1" style={{ fontSize: 10, opacity: 0.85, marginTop: 2, fontFamily: 'DM Mono, monospace' }}>
+                      <div className="flex items-center justify-end gap-1" style={{ fontSize: 10, opacity: 0.85, marginTop: 2 }}>
                         {timeLabel(m.created_at)}
                         {mine && !oversight && (() => { const r = receiptFor(m); return <Receipt state={r.state} title={r.title} /> })()}
                       </div>
@@ -377,7 +377,7 @@ export default function TeamView({ meId, isAdmin, onUnreadChange, onError, onInf
               })}
               {outbox.map((o) => (
                 <div key={o.id} className="flex flex-col" style={{ alignItems: 'flex-end' }}>
-                  <div style={{ maxWidth: '78%', padding: '8px 12px', borderRadius: 12, fontSize: 13, lineHeight: 1.5, background: '#f97316', color: '#fff', opacity: o.failed ? 0.6 : 0.85, whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
+                  <div style={{ maxWidth: '78%', padding: '8px 12px', borderRadius: 12, fontSize: 13, lineHeight: 1.5, background: 'var(--c-primary-l)', color: '#fff', opacity: o.failed ? 0.6 : 0.85, whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
                     {o.body}
                     <div className="flex items-center justify-end gap-1" style={{ fontSize: 10, marginTop: 2 }}>
                       <Receipt state={o.failed ? 'failed' : 'pending'} title="" />
