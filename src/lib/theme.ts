@@ -4,10 +4,10 @@ export type Theme = 'dark' | 'light'
 const KEY = 'ile-theme'
 
 function read(): Theme {
-  if (typeof window === 'undefined') return 'dark'
+  if (typeof window === 'undefined') return 'light'
   const saved = localStorage.getItem(KEY)
   if (saved === 'light' || saved === 'dark') return saved
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  return 'light'
 }
 
 function apply(t: Theme) {
