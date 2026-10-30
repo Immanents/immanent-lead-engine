@@ -11,6 +11,7 @@ function read(): Theme {
 }
 
 function apply(t: Theme) {
+  document.documentElement.classList.toggle('dark', t === 'dark')
   document.documentElement.classList.toggle('light', t === 'light')
 }
 
