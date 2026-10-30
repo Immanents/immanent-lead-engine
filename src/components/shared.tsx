@@ -9,16 +9,16 @@ export const STATUS_META: Record<
   CONTACTED: { color: 'var(--t-amber)', bg: 'var(--t-amber-bg)', label: 'Contacted' },
   INTERESTED: { color: 'var(--t-green)', bg: 'var(--t-green-bg)', label: 'Interested' },
   PROPOSAL: { color: 'var(--t-blue)', bg: 'var(--t-blue-bg)', label: 'Proposal' },
-  WON: { color: '#10b981', bg: 'var(--t-green-bg)', label: 'Won' },
+  WON: { color: 'var(--t-green)', bg: 'var(--t-green-bg)', label: 'Won' },
   LOST: { color: 'var(--t-red)', bg: 'var(--t-red-bg)', label: 'Lost' },
   NURTURE: { color: 'var(--c-primary-l)', bg: 'var(--t-orange-bg)', label: 'Nurture' },
-  ARCHIVED: { color: '#64748b', bg: 'var(--c-edge)', label: 'Archived' },
+  ARCHIVED: { color: 'var(--c-ink-2)', bg: 'var(--c-edge)', label: 'Archived' },
 }
 
 export const PRIORITY_META: Record<Priority, { color: string; dot: string }> = {
-  'High Priority': { color: '#f43f5e', dot: '#f43f5e' },
-  Good: { color: '#10b981', dot: '#10b981' },
-  Maybe: { color: '#f59e0b', dot: '#f59e0b' },
+  'High Priority': { color: 'var(--t-red)', dot: 'var(--t-red)' },
+  Good: { color: 'var(--t-green)', dot: 'var(--t-green)' },
+  Maybe: { color: 'var(--t-amber)', dot: 'var(--t-amber)' },
   Low: { color: 'var(--c-ink-3)', dot: 'var(--c-ink-3)' },
 }
 
@@ -30,7 +30,7 @@ export function StatusBadge({ status }: { status: LeadStatus }) {
       style={{
         color: meta.color,
         background: meta.bg,
-        fontFamily: 'DM Mono, monospace',
+
         letterSpacing: '0.02em',
       }}
     >
@@ -57,11 +57,11 @@ export function PriorityBadge({ priority }: { priority: Priority }) {
 
 export function ScoreBadge({ score }: { score: number }) {
   const color =
-    score >= 80 ? '#f43f5e' : score >= 60 ? '#10b981' : score >= 40 ? '#f59e0b' : '#64748b'
+    score >= 80 ? 'var(--t-red)' : score >= 60 ? 'var(--t-green)' : score >= 40 ? 'var(--t-amber)' : 'var(--c-ink-2)'
   return (
     <span
       className="text-xs font-medium"
-      style={{ color, fontFamily: 'DM Mono, monospace' }}
+      style={{ color }}
     >
       {score}
     </span>
@@ -78,7 +78,7 @@ export function PackageBadge({ pkg }: { pkg: PackageType }) {
   return (
     <span
       className="text-xs font-medium px-2 py-0.5 rounded"
-      style={{ color: c.color, background: c.bg, fontFamily: 'DM Mono, monospace' }}
+      style={{ color: c.color, background: c.bg }}
     >
       {pkg}
     </span>
@@ -90,7 +90,7 @@ export function statusColor(s: LeadStatus) {
   return STATUS_META[s]?.label ?? s
 }
 export function priorityDot(p: Priority) {
-  return PRIORITY_META[p]?.dot ?? '#64748b'
+  return PRIORITY_META[p]?.dot ?? 'var(--c-ink-2)'
 }
 
 export function fmt(n: number) {
