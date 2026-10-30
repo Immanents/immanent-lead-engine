@@ -11,7 +11,7 @@ interface CampaignsViewProps {
 
 const STATUS_META: Record<Campaign['status'], { color: string; bg: string }> = {
   ACTIVE: { color: 'var(--t-green)', bg: 'var(--t-green-bg)' },
-  PAUSED: { color: '#f59e0b', bg: 'var(--t-amber-bg)' },
+  PAUSED: { color: 'var(--t-amber)', bg: 'var(--t-amber-bg)' },
   COMPLETED: { color: 'var(--c-primary-l)', bg: 'var(--t-orange-bg)' },
   UPCOMING: { color: 'var(--t-blue)', bg: 'var(--t-blue-bg)' },
 }
@@ -21,7 +21,7 @@ function MetricCell({ label, value, accent }: { label: string; value: number | s
     <div className="text-center">
       <div
         className="text-base font-semibold"
-        style={{ color: accent ?? 'var(--c-ink)', fontFamily: 'DM Mono, monospace', letterSpacing: '-0.02em' }}
+        style={{ color: accent ?? 'var(--c-ink)', letterSpacing: '0' }}
       >
         {value}
       </div>
@@ -38,17 +38,17 @@ export default function CampaignsView({ campaigns, onAdd }: CampaignsViewProps) 
       {showModal && <NewCampaignModal onClose={() => setShowModal(false)} onAdd={onAdd} />}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+          <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
             Campaigns
           </h1>
-          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+          <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
             Organised lead acquisition campaigns
           </p>
         </div>
         <button
           onClick={() => setShowModal(true)}
           className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md font-medium"
-          style={{ background: '#f97316', color: '#fff' }}
+          style={{ background: 'var(--c-primary-l)', color: '#fff' }}
         >
           <Plus size={13} />
           New Campaign
@@ -67,7 +67,7 @@ export default function CampaignsView({ campaigns, onAdd }: CampaignsViewProps) 
             <Megaphone size={22} style={{ color: 'var(--c-ink-3)' }} />
           </div>
           <div className="text-center">
-            <p className="text-sm font-medium" style={{ color: '#64748b' }}>No campaigns yet</p>
+            <p className="text-sm font-medium" style={{ color: 'var(--c-ink-2)' }}>No campaigns yet</p>
             <p className="text-xs mt-1" style={{ color: 'var(--c-ink-3)' }}>
               Create a campaign to group and track leads by outreach effort
             </p>
@@ -92,14 +92,14 @@ export default function CampaignsView({ campaigns, onAdd }: CampaignsViewProps) 
                       {c.name}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs" style={{ color: '#64748b' }}>{c.industry}</span>
+                      <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{c.industry}</span>
                       <span style={{ color: 'var(--c-edge-2)' }}>·</span>
-                      <span className="text-xs" style={{ color: '#64748b' }}>{c.location}</span>
+                      <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{c.location}</span>
                     </div>
                   </div>
                   <span
                     className="text-xs px-2 py-0.5 rounded font-medium flex-shrink-0"
-                    style={{ background: meta.bg, color: meta.color, fontFamily: 'DM Mono, monospace' }}
+                    style={{ background: meta.bg, color: meta.color }}
                   >
                     {c.status}
                   </span>
@@ -120,23 +120,23 @@ export default function CampaignsView({ campaigns, onAdd }: CampaignsViewProps) 
                 <MetricCell label="Qualified" value={c.qualified} accent="var(--c-primary-l)" />
                 <MetricCell label="Contacted" value={c.contacted} accent="var(--t-amber)" />
                 <MetricCell label="Interested" value={c.interested} accent="var(--t-green)" />
-                <MetricCell label="Won" value={c.won} accent="#10b981" />
+                <MetricCell label="Won" value={c.won} accent="var(--t-green)" />
               </div>
 
               <div
                 className="px-5 py-3 flex items-center justify-between"
                 style={{ borderTop: '1px solid var(--c-edge)' }}
               >
-                <div className="flex items-center gap-1.5 text-xs" style={{ color: '#64748b' }}>
+                <div className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--c-ink-2)' }}>
                   <TrendingUp size={12} />
                   Conv. {convRate}%
                 </div>
-                <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: '#10b981', fontFamily: 'DM Mono, monospace' }}>
+                <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: 'var(--t-green)' }}>
                   Revenue: {fmt(c.revenue)}
                 </div>
                 <button
                   className="text-xs px-2.5 py-1 rounded"
-                  style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}
+                  style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
                 >
                   View Leads
                 </button>
