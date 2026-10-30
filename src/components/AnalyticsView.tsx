@@ -26,11 +26,11 @@ const FUNNEL_COLORS: Record<string, string> = {
   CONTACTED: 'var(--t-amber)',
   INTERESTED: 'var(--t-green)',
   PROPOSAL: 'var(--t-blue)',
-  WON: '#10b981',
+  WON: 'var(--t-green)',
   LOST: 'var(--t-red)',
 }
 
-const SOURCE_COLORS = ['#f97316', '#10b981', '#f59e0b', '#f43f5e', '#38bdf8', '#2563eb', 'var(--t-blue)', 'var(--t-green)']
+const SOURCE_COLORS = ['var(--c-primary-l)', 'var(--t-green)', 'var(--t-amber)', 'var(--t-red)', 'var(--c-primary-l)', 'var(--c-primary-l)', 'var(--t-blue)', 'var(--t-green)']
 
 const tooltipStyle = {
   background: 'var(--c-surface)',
@@ -48,7 +48,7 @@ function SectionHeader({ title }: { title: string }) {
         color: 'var(--c-ink-3)',
         textTransform: 'uppercase',
         letterSpacing: '0.06em',
-        fontFamily: 'DM Mono, monospace',
+
         marginBottom: 12,
       }}
     >
@@ -112,10 +112,10 @@ export default function AnalyticsView({ leads, campaigns }: AnalyticsViewProps) 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+        <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
           Analytics
         </h1>
-        <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
           Revenue and sales performance
         </p>
       </div>
@@ -124,19 +124,19 @@ export default function AnalyticsView({ leads, campaigns }: AnalyticsViewProps) 
       <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {[
           { label: 'Total Leads', value: totalLeads },
-          { label: 'Won Revenue', value: fmt(wonRevenue), accent: '#10b981' },
+          { label: 'Won Revenue', value: fmt(wonRevenue), accent: 'var(--t-green)' },
           { label: 'Pipeline Value', value: fmt(pipelineValue), accent: 'var(--c-primary-l)' },
-          { label: 'Avg Project Value', value: fmt(Math.round(avgProjectValue)), accent: '#f59e0b' },
+          { label: 'Avg Project Value', value: fmt(Math.round(avgProjectValue)), accent: 'var(--t-amber)' },
         ].map((k) => (
           <div
             key={k.label}
             className="rounded-lg px-4 py-3"
             style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}
           >
-            <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>{k.label}</div>
+            <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>{k.label}</div>
             <div
-              className="text-xl font-semibold"
-              style={{ color: k.accent ?? 'var(--c-ink)', fontFamily: 'DM Mono, monospace', letterSpacing: '-0.02em' }}
+              className="text-2xl font-medium"
+              style={{ color: k.accent ?? 'var(--c-ink)', letterSpacing: '0' }}
             >
               {k.value}
             </div>
@@ -157,10 +157,10 @@ export default function AnalyticsView({ leads, campaigns }: AnalyticsViewProps) 
             className="rounded-lg px-4 py-3"
             style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}
           >
-            <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>{k.label}</div>
+            <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>{k.label}</div>
             <div
-              className="text-xl font-semibold"
-              style={{ color: 'var(--c-ink)', fontFamily: 'DM Mono, monospace', letterSpacing: '-0.02em' }}
+              className="text-2xl font-medium"
+              style={{ color: 'var(--c-ink)', letterSpacing: '0' }}
             >
               {k.value}
             </div>
@@ -179,12 +179,12 @@ export default function AnalyticsView({ leads, campaigns }: AnalyticsViewProps) 
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={funnelData} layout="vertical" margin={{ left: 0, right: 16 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--c-edge)" horizontal={false} />
-              <XAxis type="number" tick={{ fill: 'var(--c-ink-3)', fontSize: 10, fontFamily: 'DM Mono, monospace' }} axisLine={false} tickLine={false} />
-              <YAxis dataKey="name" type="category" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} width={72} />
+              <XAxis type="number" tick={{ fill: 'var(--c-ink-3)', fontSize: 10 }} axisLine={false} tickLine={false} />
+              <YAxis dataKey="name" type="category" tick={{ fill: 'var(--c-ink-2)', fontSize: 11 }} axisLine={false} tickLine={false} width={72} />
               <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'var(--c-surface-2)' }} />
               <Bar dataKey="value" radius={[0, 3, 3, 0]}>
                 {funnelData.map((entry) => (
-                  <Cell key={entry.name} fill={FUNNEL_COLORS[entry.name.toUpperCase()] ?? '#f97316'} />
+                  <Cell key={entry.name} fill={FUNNEL_COLORS[entry.name.toUpperCase()] ?? 'var(--c-primary-l)'} />
                 ))}
               </Bar>
             </BarChart>
@@ -223,8 +223,8 @@ export default function AnalyticsView({ leads, campaigns }: AnalyticsViewProps) 
                     className="rounded-sm flex-shrink-0"
                     style={{ width: 8, height: 8, background: SOURCE_COLORS[i % SOURCE_COLORS.length] }}
                   />
-                  <span className="text-xs flex-1" style={{ color: '#64748b' }}>{s.name}</span>
-                  <span className="text-xs" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>{s.value}</span>
+                  <span className="text-xs flex-1" style={{ color: 'var(--c-ink-2)' }}>{s.name}</span>
+                  <span className="text-xs" style={{ color: 'var(--c-ink-3)' }}>{s.value}</span>
                 </div>
               ))}
             </div>
@@ -241,13 +241,13 @@ export default function AnalyticsView({ leads, campaigns }: AnalyticsViewProps) 
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={campaignData} margin={{ left: 0, right: 16, top: 4 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="var(--c-edge)" vertical={false} />
-            <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fill: 'var(--c-ink-3)', fontSize: 10, fontFamily: 'DM Mono, monospace' }} axisLine={false} tickLine={false} />
+            <XAxis dataKey="name" tick={{ fill: 'var(--c-ink-2)', fontSize: 11 }} axisLine={false} tickLine={false} />
+            <YAxis tick={{ fill: 'var(--c-ink-3)', fontSize: 10 }} axisLine={false} tickLine={false} />
             <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'var(--c-surface-2)' }} />
             <Bar dataKey="leads" name="Total Leads" fill="var(--c-edge-2)" radius={[3, 3, 0, 0]} />
-            <Bar dataKey="qualified" name="Qualified" fill="#f97316" radius={[3, 3, 0, 0]} />
+            <Bar dataKey="qualified" name="Qualified" fill="var(--c-primary-l)" radius={[3, 3, 0, 0]} />
             <Bar dataKey="interested" name="Interested" fill="var(--t-green)" radius={[3, 3, 0, 0]} />
-            <Bar dataKey="won" name="Won" fill="#10b981" radius={[3, 3, 0, 0]} />
+            <Bar dataKey="won" name="Won" fill="var(--t-green)" radius={[3, 3, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
