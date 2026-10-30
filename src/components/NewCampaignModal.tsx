@@ -19,7 +19,7 @@ const MODAL: React.CSSProperties = {
 }
 
 const LABEL: React.CSSProperties = {
-  fontSize: 11, color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace',
+  fontSize: 11, color: 'var(--c-ink-3)',
   textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: 6,
 }
 
@@ -117,7 +117,7 @@ export default function NewCampaignModal({ onClose, onAdd }: Props) {
               type="button"
               onClick={onClose}
               className="text-sm px-4 py-2 rounded-md"
-              style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}
+              style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
             >
               Cancel
             </button>
@@ -125,7 +125,7 @@ export default function NewCampaignModal({ onClose, onAdd }: Props) {
               type="submit"
               disabled={saving}
               className="text-sm px-4 py-2 rounded-md font-medium"
-              style={{ background: '#f97316', color: '#fff', opacity: saving ? 0.6 : 1 }}
+              style={{ background: 'var(--c-primary-l)', color: '#fff', opacity: saving ? 0.6 : 1 }}
             >
               {saving ? 'Creating...' : 'Create Campaign'}
             </button>
