@@ -39,6 +39,25 @@
   --t-blue: #0052ff; --t-blue-bg: #eff6ff;
 }
 
+:root.dark {
+  color-scheme: dark;
+  --c-bg: #080d1c;
+  --c-surface: #101a30;
+  --c-surface-2: #17233b;
+  --c-surface-3: #1e2d49;
+  --c-edge: #283753;
+  --c-edge-2: #3a4c6b;
+  --c-ink: #f3f6fc;
+  --c-ink-2: #b0bbcd;
+  --c-ink-3: #8794aa;
+  --c-primary-l: #6b9cff;
+  --t-red: #ff7b82; --t-red-bg: #3a1e2a; --t-red-bd: #63313d;
+  --t-amber: #f5c15d; --t-amber-bg: #352d1e; --t-amber-bd: #62502b;
+  --t-green: #4bd39a; --t-green-bg: #17352e; --t-green-bd: #265a49;
+  --t-orange-bg: #1d2d49;
+  --t-blue: #91b5ff; --t-blue-bg: #1b3155;
+}
+
 html, body, aside, header, main { transition: background-color 0.2s ease, color 0.2s ease; }
 
 @theme {
