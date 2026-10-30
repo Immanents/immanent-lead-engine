@@ -16,11 +16,11 @@ const CHANNEL_ICON = {
 }
 
 const STATUS_META: Record<OutreachStatus, { color: string; bg: string }> = {
-  DRAFT: { color: '#64748b', bg: 'var(--c-edge)' },
-  PENDING_APPROVAL: { color: '#f59e0b', bg: 'var(--t-amber-bg)' },
+  DRAFT: { color: 'var(--c-ink-2)', bg: 'var(--c-edge)' },
+  PENDING_APPROVAL: { color: 'var(--t-amber)', bg: 'var(--t-amber-bg)' },
   APPROVED: { color: 'var(--c-primary-l)', bg: 'var(--t-orange-bg)' },
   SENT: { color: 'var(--t-green)', bg: 'var(--t-green-bg)' },
-  REPLIED: { color: '#10b981', bg: 'var(--t-green-bg)' },
+  REPLIED: { color: 'var(--t-green)', bg: 'var(--t-green-bg)' },
   NO_RESPONSE: { color: 'var(--t-red)', bg: 'var(--t-red-bg)' },
 }
 
@@ -42,17 +42,17 @@ export default function OutreachView({ outreach, onApprove, onReject }: Outreach
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+          <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
             Outreach
           </h1>
-          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+          <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
             Human-reviewed outreach messages
           </p>
         </div>
         {pending.length > 0 && (
           <div
             className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-md"
-            style={{ background: 'var(--t-amber-bg)', color: '#f59e0b', border: '1px solid var(--t-amber-bd)', fontFamily: 'DM Mono, monospace' }}
+            style={{ background: 'var(--t-amber-bg)', color: 'var(--t-amber)', border: '1px solid var(--t-amber-bd)' }}
           >
             {pending.length} awaiting approval
           </div>
@@ -68,7 +68,7 @@ export default function OutreachView({ outreach, onApprove, onReject }: Outreach
             className="px-4 py-2.5 text-sm font-medium capitalize"
             style={{
               color: tab === t ? 'var(--c-ink)' : 'var(--c-ink-3)',
-              borderBottom: tab === t ? '2px solid #f97316' : '2px solid transparent',
+              borderBottom: tab === t ? '2px solid var(--c-primary-l)' : '2px solid transparent',
               marginBottom: -1,
             }}
           >
@@ -110,7 +110,7 @@ export default function OutreachView({ outreach, onApprove, onReject }: Outreach
                   className="flex items-center justify-center rounded"
                   style={{ width: 28, height: 28, background: 'var(--c-surface-2)', flexShrink: 0 }}
                 >
-                  <Icon size={13} style={{ color: '#64748b' }} />
+                  <Icon size={13} style={{ color: 'var(--c-ink-2)' }} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
@@ -119,13 +119,13 @@ export default function OutreachView({ outreach, onApprove, onReject }: Outreach
                     </span>
                     <span
                       className="text-xs px-1.5 py-0.5 rounded"
-                      style={{ background: 'var(--c-surface-2)', color: '#64748b', fontFamily: 'DM Mono, monospace' }}
+                      style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)' }}
                     >
                       {msg.channel}
                     </span>
                     <span
                       className="text-xs px-1.5 py-0.5 rounded"
-                      style={{ background: 'var(--c-surface-2)', color: '#64748b', fontFamily: 'DM Mono, monospace' }}
+                      style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)' }}
                     >
                       {MESSAGE_TYPE_LABEL[msg.message_type]}
                     </span>
@@ -139,7 +139,7 @@ export default function OutreachView({ outreach, onApprove, onReject }: Outreach
                 </div>
                 <span
                   className="text-xs px-2 py-0.5 rounded font-medium ml-auto flex-shrink-0"
-                  style={{ background: meta.bg, color: meta.color, fontFamily: 'DM Mono, monospace' }}
+                  style={{ background: meta.bg, color: meta.color }}
                 >
                   {msg.status.replace('_', ' ')}
                 </span>
@@ -160,7 +160,7 @@ export default function OutreachView({ outreach, onApprove, onReject }: Outreach
                       <button
                         onClick={() => onApprove(msg.id)}
                         className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md font-medium"
-                        style={{ background: '#10b981', color: '#fff' }}
+                        style={{ background: 'var(--t-green)', color: '#fff' }}
                       >
                         <Check size={13} />
                         Approve & Send
