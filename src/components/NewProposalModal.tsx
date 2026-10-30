@@ -71,7 +71,7 @@ const MODAL: React.CSSProperties = {
 const LABEL: React.CSSProperties = {
   fontSize: 11,
   color: 'var(--c-ink-3)',
-  fontFamily: 'DM Mono, monospace',
+
   textTransform: 'uppercase',
   letterSpacing: '0.06em',
   display: 'block',
@@ -278,7 +278,7 @@ export default function NewProposalModal({ leads, onClose, onAdd }: Props) {
                     borderRadius: 7,
                     border: `1px solid ${
                       pkg === p.id
-                        ? '#f97316'
+                        ? 'var(--c-primary-l)'
                         : 'var(--c-edge)'
                     }`,
                     background:
@@ -304,9 +304,9 @@ export default function NewProposalModal({ leads, onClose, onAdd }: Props) {
                   <div
                     className="text-xs"
                     style={{
-                      color: '#10b981',
+                      color: 'var(--t-green)',
                       fontFamily:
-                        'DM Mono, monospace',
+                        'Inter, system-ui, sans-serif',
                     }}
                   >
                     {fmt(p.price)}
@@ -426,7 +426,7 @@ export default function NewProposalModal({ leads, onClose, onAdd }: Props) {
             <p
               className="text-xs"
               style={{
-                color: '#64748b',
+                color: 'var(--c-ink-2)',
                 lineHeight: 1.6,
               }}
             >
@@ -453,7 +453,7 @@ export default function NewProposalModal({ leads, onClose, onAdd }: Props) {
               className="text-sm px-4 py-2 rounded-md"
               style={{
                 background: 'var(--c-surface-2)',
-                color: '#64748b',
+                color: 'var(--c-ink-2)',
                 border: '1px solid var(--c-edge)',
               }}
             >
@@ -465,7 +465,7 @@ export default function NewProposalModal({ leads, onClose, onAdd }: Props) {
               disabled={saving}
               className="text-sm px-4 py-2 rounded-md font-medium"
               style={{
-                background: '#f97316',
+                background: 'var(--c-primary-l)',
                 color: '#fff',
                 opacity: saving ? 0.6 : 1,
               }}
