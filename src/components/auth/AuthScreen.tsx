@@ -17,7 +17,7 @@ const INPUT: React.CSSProperties = {
   fontSize: 14,
   color: 'var(--c-ink)',
   outline: 'none',
-  fontFamily: 'Inter, sans-serif',
+
   transition: 'border-color 0.15s',
 }
 
@@ -77,7 +77,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: 24,
-        fontFamily: 'Inter, sans-serif',
+
       }}
     >
       {/* Background grid */}
@@ -86,7 +86,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
           position: 'fixed',
           inset: 0,
           backgroundImage:
-            'radial-gradient(circle at center, rgba(249,115,22,0.06) 1px, transparent 1px)',
+            'none',
           backgroundSize: '32px 32px',
           pointerEvents: 'none',
         }}
@@ -99,7 +99,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
             style={{
               width: 48,
               height: 48,
-              background: '#f97316',
+              background: 'var(--c-primary-l)',
               borderRadius: 12,
               display: 'flex',
               alignItems: 'center',
@@ -171,7 +171,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {mode === 'signup' && (
               <div>
-                <label style={{ display: 'block', fontSize: 12, color: 'var(--c-ink-3)', marginBottom: 6, fontFamily: 'DM Mono, monospace' }}>
+                <label style={{ display: 'block', fontSize: 12, color: 'var(--c-ink-3)', marginBottom: 6 }}>
                   Full Name
                 </label>
                 <input
@@ -181,14 +181,14 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name"
                   style={INPUT}
-                  onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                  onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--c-primary-l)')}
                   onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--c-edge)')}
                 />
               </div>
             )}
 
             <div>
-              <label style={{ display: 'block', fontSize: 12, color: 'var(--c-ink-3)', marginBottom: 6, fontFamily: 'DM Mono, monospace' }}>
+              <label style={{ display: 'block', fontSize: 12, color: 'var(--c-ink-3)', marginBottom: 6 }}>
                 Email
               </label>
               <input
@@ -198,7 +198,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 style={INPUT}
-                onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--c-primary-l)')}
                 onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--c-edge)')}
               />
             </div>
@@ -206,7 +206,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
             {mode !== 'forgot' && (
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <label style={{ fontSize: 12, color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>
+                  <label style={{ fontSize: 12, color: 'var(--c-ink-3)' }}>
                     Password
                   </label>
                   {mode === 'login' && (
@@ -215,15 +215,15 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
                       onClick={() => { setMode('forgot'); setError(null); setSuccess(null) }}
                       style={{
                         fontSize: 12,
-                        color: '#f97316',
+                        color: 'var(--c-primary-l)',
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
-                        fontFamily: 'Inter, sans-serif',
+
                       }}
                       onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--c-primary-l)')}
-                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#f97316')}
+                      onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--c-primary-l)')}
                     >
                       Forgot password?
                     </button>
@@ -238,7 +238,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
                     placeholder={mode === 'signup' ? 'Min. 8 characters' : '••••••••'}
                     minLength={mode === 'signup' ? 8 : undefined}
                     style={{ ...INPUT, paddingRight: 42 }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--c-primary-l)')}
                     onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--c-edge)')}
                   />
                   <button
@@ -304,7 +304,7 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
                 fontWeight: 600,
                 cursor: loading ? 'not-allowed' : 'pointer',
                 border: 'none',
-                background: '#f97316',
+                background: 'var(--c-primary-l)',
                 color: '#fff',
                 opacity: loading ? 0.7 : 1,
                 display: 'flex',
@@ -331,8 +331,8 @@ export default function AuthScreen({ onAuth }: AuthScreenProps) {
                   cursor: 'pointer',
                   border: '1px solid var(--c-edge)',
                   background: 'var(--c-surface-2)',
-                  color: '#64748b',
-                  fontFamily: 'Inter, sans-serif',
+                  color: 'var(--c-ink-2)',
+
                 }}
               >
                 ← Back to Sign In
