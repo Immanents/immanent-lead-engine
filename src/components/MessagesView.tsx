@@ -125,7 +125,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>Messages</h1>
+        <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>Messages</h1>
         <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-3)' }}>
           {isAdmin ? 'Message any sub account directly' : 'Send a message to your admin'}
         </p>
@@ -169,7 +169,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                       title={lastSeenLabel(c, now)}
                       style={{
                         position: 'absolute', right: -1, bottom: -1, width: 10, height: 10, borderRadius: '50%',
-                        background: isOnline(c, now) ? '#10b981' : 'var(--c-ink-3)',
+                        background: isOnline(c, now) ? 'var(--t-green)' : 'var(--c-ink-3)',
                         border: '2px solid var(--c-surface)',
                       }}
                     />
@@ -179,7 +179,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                     <div className="text-xs truncate" style={{ color: 'var(--c-ink-3)' }}>{lastMsg ? lastMsg.body : c.email}</div>
                   </div>
                   {unread > 0 && (
-                    <span style={{ background: '#f97316', color: '#fff', borderRadius: 9999, minWidth: 18, height: 18, fontSize: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingInline: 4 }}>
+                    <span style={{ background: 'var(--c-primary-l)', color: '#fff', borderRadius: 9999, minWidth: 18, height: 18, fontSize: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingInline: 4 }}>
                       {unread}
                     </span>
                   )}
@@ -207,8 +207,8 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                     {active.full_name || active.email}
                     {active.role === 'admin' && <ShieldCheck size={13} style={{ color: 'var(--c-primary-l)' }} />}
                   </div>
-                  <div className="text-xs truncate flex items-center gap-1.5" style={{ color: isOnline(active, now) ? '#10b981' : 'var(--c-ink-3)' }}>
-                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: isOnline(active, now) ? '#10b981' : 'var(--c-ink-3)', flexShrink: 0 }} />
+                  <div className="text-xs truncate flex items-center gap-1.5" style={{ color: isOnline(active, now) ? 'var(--t-green)' : 'var(--c-ink-3)' }}>
+                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: isOnline(active, now) ? 'var(--t-green)' : 'var(--c-ink-3)', flexShrink: 0 }} />
                     {lastSeenLabel(active, now)}
                     <span style={{ color: 'var(--c-ink-3)' }}>· {active.role === 'admin' ? 'Admin' : 'Sub account'}</span>
                   </div>
@@ -228,7 +228,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                           maxWidth: '78%',
                           padding: '8px 12px',
                           borderRadius: 12,
-                          background: mine ? '#f97316' : 'var(--c-surface-2)',
+                          background: mine ? 'var(--c-primary-l)' : 'var(--c-surface-2)',
                           color: mine ? '#fff' : 'var(--c-ink)',
                           border: mine ? 'none' : '1px solid var(--c-edge)',
                           fontSize: 13,
@@ -238,7 +238,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                         }}
                       >
                         {m.body}
-                        <div className="flex items-center justify-end gap-1" style={{ fontSize: 10, opacity: 0.8, marginTop: 2, fontFamily: 'DM Mono, monospace' }}>
+                        <div className="flex items-center justify-end gap-1" style={{ fontSize: 10, opacity: 0.8, marginTop: 2 }}>
                           {timeLabel(m.created_at)}
                           {mine && <Receipt m={m} />}
                           {mine && m.read_at && <span>Read</span>}
@@ -266,7 +266,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                   style={{
                     flex: 1, resize: 'none', background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)',
                     color: 'var(--c-ink)', borderRadius: 8, padding: '8px 12px', fontSize: 13, outline: 'none', maxHeight: 120,
-                    fontFamily: 'Inter, sans-serif',
+
                   }}
                 />
                 <button
@@ -274,7 +274,7 @@ export default function MessagesView({ meId, isAdmin, messages, onRefresh, onErr
                   disabled={!draft.trim() || sending}
                   aria-label="Send"
                   style={{
-                    background: '#f97316', color: '#fff', border: 'none', borderRadius: 8, padding: '9px 12px',
+                    background: 'var(--c-primary-l)', color: '#fff', border: 'none', borderRadius: 8, padding: '9px 12px',
                     cursor: 'pointer', opacity: !draft.trim() || sending ? 0.5 : 1, display: 'flex',
                   }}
                 >
