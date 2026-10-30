@@ -193,7 +193,7 @@ Immanent Studio`
               style={{
                 color: 'var(--c-ink-3)',
                 fontFamily:
-                  'DM Mono, monospace',
+                  'Inter, system-ui, sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.06em',
               }}
@@ -202,7 +202,7 @@ Immanent Studio`
             </p>
 
             <h2
-              className="text-xl font-semibold"
+              className="text-2xl font-medium"
               style={{
                 color: 'var(--c-ink)',
               }}
@@ -214,7 +214,7 @@ Immanent Studio`
               <p
                 className="text-sm mt-1"
                 style={{
-                  color: '#64748b',
+                  color: 'var(--c-ink-2)',
                 }}
               >
                 Prepared for{' '}
@@ -229,7 +229,7 @@ Immanent Studio`
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: '#64748b',
+              color: 'var(--c-ink-2)',
             }}
           >
             <X size={18} />
@@ -258,7 +258,7 @@ Immanent Studio`
                 style={{
                   color: 'var(--c-ink-3)',
                   fontFamily:
-                    'DM Mono, monospace',
+                    'Inter, system-ui, sans-serif',
                 }}
               >
                 PACKAGE
@@ -282,7 +282,7 @@ Immanent Studio`
                 style={{
                   color: 'var(--c-ink-3)',
                   fontFamily:
-                    'DM Mono, monospace',
+                    'Inter, system-ui, sans-serif',
                 }}
               >
                 PROJECT VALUE
@@ -291,9 +291,9 @@ Immanent Studio`
               <p
                 className="text-lg font-semibold"
                 style={{
-                  color: '#10b981',
+                  color: 'var(--t-green)',
                   fontFamily:
-                    'DM Mono, monospace',
+                    'Inter, system-ui, sans-serif',
                 }}
               >
                 {fmt(proposal.price)}
@@ -313,7 +313,7 @@ Immanent Studio`
                 style={{
                   color: 'var(--c-ink-3)',
                   fontFamily:
-                    'DM Mono, monospace',
+                    'Inter, system-ui, sans-serif',
                 }}
               >
                 TIMELINE
@@ -339,9 +339,9 @@ Immanent Studio`
             <h3
               className="text-xs mb-2"
               style={{
-                color: '#f97316',
+                color: 'var(--c-primary-l)',
                 fontFamily:
-                  'DM Mono, monospace',
+                  'Inter, system-ui, sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.06em',
               }}
@@ -374,9 +374,9 @@ Immanent Studio`
             <h3
               className="text-xs mb-2"
               style={{
-                color: '#f97316',
+                color: 'var(--c-primary-l)',
                 fontFamily:
-                  'DM Mono, monospace',
+                  'Inter, system-ui, sans-serif',
                 textTransform: 'uppercase',
                 letterSpacing: '0.06em',
               }}
@@ -409,9 +409,9 @@ Immanent Studio`
               <h3
                 className="text-xs"
                 style={{
-                  color: '#f97316',
+                  color: 'var(--c-primary-l)',
                   fontFamily:
-                    'DM Mono, monospace',
+                    'Inter, system-ui, sans-serif',
                   textTransform: 'uppercase',
                   letterSpacing: '0.06em',
                 }}
@@ -511,7 +511,7 @@ Immanent Studio`
                     background: 'var(--t-orange-bg)',
                     color: 'var(--c-primary-l)',
                     border:
-                      '1px solid #f97316',
+                      '1px solid var(--c-primary-l)',
                   }}
                 >
                   <Send size={14} />
