@@ -29,17 +29,17 @@ function StatCard({
       className="rounded-lg px-5 py-4"
       style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}
     >
-      <div className="text-xs mb-2" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+      <div className="text-xs mb-2" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
         {label}
       </div>
       <div
         className="text-2xl font-semibold"
-        style={{ color: accent ?? 'var(--c-ink)', fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.02em' }}
+        style={{ color: accent ?? 'var(--c-ink)', fontVariantNumeric: 'tabular-nums', letterSpacing: '0' }}
       >
         {value}
       </div>
       {sub && (
-        <div className="text-xs mt-1" style={{ color: '#64748b' }}>
+        <div className="text-xs mt-1" style={{ color: 'var(--c-ink-2)' }}>
           {sub}
         </div>
       )}
@@ -98,10 +98,10 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+        <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
           {userName ? `Welcome back, ${userName.split(' ')[0]}` : 'Dashboard'}
         </h1>
-        <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
           {new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} — What should you do today?
         </p>
       </div>
@@ -109,7 +109,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
       {/* Revenue stats */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
         <StatCard label="Pipeline Value" value={fmt(pipelineValue)} sub={`${activeLeads.length} active leads`} />
-        <StatCard label="Won Revenue" value={fmt(wonRevenue)} sub={`${wonLeads.length} clients won`} accent="#10b981" />
+        <StatCard label="Won Revenue" value={fmt(wonRevenue)} sub={`${wonLeads.length} clients won`} accent="var(--t-green)" />
         <StatCard label="Active Leads" value={activeLeads.length} sub="In pipeline" />
         <StatCard label="Clients" value={wonLeads.length} sub="All time" accent="var(--c-primary-l)" />
       </div>
@@ -119,7 +119,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
         className="rounded-lg"
         style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)', overflow: 'hidden' }}
       >
-        <div className="text-xs font-medium px-5 pt-4 pb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+        <div className="text-xs font-medium px-5 pt-4 pb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
           Lead Funnel
         </div>
         <div
@@ -135,14 +135,14 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
                   <div
                     className="text-lg font-semibold"
                     style={{
-                      color: stage === 'WON' ? '#10b981' : stage === 'LOST' ? '#f43f5e' : 'var(--c-ink)',
+                      color: stage === 'WON' ? 'var(--t-green)' : stage === 'LOST' ? 'var(--t-red)' : 'var(--c-ink)',
                       fontVariantNumeric: 'tabular-nums',
-                      letterSpacing: '-0.02em',
+                      letterSpacing: '0',
                     }}
                   >
                     {count}
                   </div>
-                  <div className="text-xs mt-0.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>
+                  <div className="text-xs mt-0.5" style={{ color: 'var(--c-ink-3)' }}>
                     {stage}
                   </div>
                 </div>
@@ -167,7 +167,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
             className="px-5 py-3 flex items-center justify-between"
             style={{ borderBottom: '1px solid var(--c-edge)' }}
           >
-            <span className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <span className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Today's Actions
             </span>
           </div>
@@ -175,7 +175,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
             {/* Follow-ups due */}
             <div className="px-5 py-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: '#f59e0b' }}>
+                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: 'var(--t-amber)' }}>
                   <Clock size={12} />
                   Follow-ups Due ({followUpsDue.length})
                 </span>
@@ -202,7 +202,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
             {/* Pending approvals */}
             <div className="px-5 py-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: '#f97316' }}>
+                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: 'var(--c-primary-l)' }}>
                   <CheckCircle size={12} />
                   Messages Awaiting Approval ({pendingOutreach.length})
                 </span>
@@ -219,7 +219,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
                     <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{o.lead_name}</span>
                     <span
                       className="ml-auto text-xs px-1.5 py-0.5 rounded"
-                      style={{ background: 'var(--c-surface-3)', color: 'var(--c-primary-l)', fontFamily: 'DM Mono, monospace' }}
+                      style={{ background: 'var(--c-surface-3)', color: 'var(--c-primary-l)' }}
                     >
                       {o.channel}
                     </span>
@@ -230,7 +230,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
             {/* High priority leads */}
             <div className="px-5 py-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: '#f43f5e' }}>
+                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: 'var(--t-red)' }}>
                   <Star size={12} />
                   High Priority Leads ({highPriority.length})
                 </span>
@@ -244,7 +244,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
                   <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{l.business_name}</span>
                   <span
                     className="ml-auto text-xs font-mono"
-                    style={{ color: '#f43f5e' }}
+                    style={{ color: 'var(--t-red)' }}
                   >
                     {l.lead_score}
                   </span>
@@ -254,7 +254,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
             {/* Pending proposals */}
             <div className="px-5 py-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: '#2563eb' }}>
+                <span className="text-xs font-medium flex items-center gap-1.5" style={{ color: 'var(--c-primary-l)' }}>
                   <AlertCircle size={12} />
                   Pending Proposals ({pendingProposal.length})
                 </span>
@@ -269,7 +269,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
                     onClick={() => onViewLead(l.id)}
                   >
                     <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{l.business_name}</span>
-                    <span className="ml-auto text-xs" style={{ color: '#64748b' }}>
+                    <span className="ml-auto text-xs" style={{ color: 'var(--c-ink-2)' }}>
                       {l.recommended_package}
                     </span>
                   </button>
@@ -288,7 +288,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
             className="px-5 py-3"
             style={{ borderBottom: '1px solid var(--c-edge)' }}
           >
-            <span className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <span className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Recent Activity
             </span>
           </div>
@@ -301,7 +301,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
                     className="flex-shrink-0 rounded flex items-center justify-center mt-0.5"
                     style={{ width: 24, height: 24, background: 'var(--c-surface-2)' }}
                   >
-                    <Icon size={12} color="#64748b" />
+                    <Icon size={12} color="var(--c-ink-2)" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs" style={{ color: 'var(--c-ink-2)' }}>
@@ -310,7 +310,7 @@ export default function Dashboard({ leads, activities, pendingOutreach, onViewLe
                       {a.description}
                     </p>
                   </div>
-                  <span className="text-xs flex-shrink-0" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>
+                  <span className="text-xs flex-shrink-0" style={{ color: 'var(--c-ink-3)' }}>
                     {timeAgo(a.created_at)}
                   </span>
                 </div>
