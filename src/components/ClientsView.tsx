@@ -25,10 +25,10 @@ function ProgressBar({ paid, total }: { paid: number; total: number }) {
       >
         <div
           className="h-full rounded-full"
-          style={{ width: `${pct}%`, background: pct >= 100 ? '#10b981' : '#f97316' }}
+          style={{ width: `${pct}%`, background: pct >= 100 ? 'var(--t-green)' : 'var(--c-primary-l)' }}
         />
       </div>
-      <span className="text-xs flex-shrink-0" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', fontSize: 10 }}>
+      <span className="text-xs flex-shrink-0" style={{ color: 'var(--c-ink-3)', fontSize: 10 }}>
         {Math.round(pct)}%
       </span>
     </div>
@@ -43,10 +43,10 @@ export default function ClientsView({ clients }: ClientsViewProps) {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+          <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
             Clients
           </h1>
-          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+          <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
             {clients.length} active clients
           </p>
         </div>
@@ -56,8 +56,8 @@ export default function ClientsView({ clients }: ClientsViewProps) {
       <div className="grid gap-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
         {[
           { label: 'Total Clients', value: clients.length },
-          { label: 'Revenue Received', value: fmt(totalRevenue), accent: '#10b981' },
-          { label: 'Outstanding', value: fmt(totalBalance), accent: '#f59e0b' },
+          { label: 'Revenue Received', value: fmt(totalRevenue), accent: 'var(--t-green)' },
+          { label: 'Outstanding', value: fmt(totalBalance), accent: 'var(--t-amber)' },
           { label: 'In Progress', value: clients.filter((c) => c.project_status === 'IN PROGRESS').length, accent: 'var(--t-amber)' },
         ].map((s) => (
           <div
@@ -65,10 +65,10 @@ export default function ClientsView({ clients }: ClientsViewProps) {
             className="rounded-lg px-4 py-3"
             style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}
           >
-            <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>{s.label}</div>
+            <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>{s.label}</div>
             <div
-              className="text-xl font-semibold"
-              style={{ color: s.accent ?? 'var(--c-ink)', fontFamily: 'DM Mono, monospace', letterSpacing: '-0.02em' }}
+              className="text-2xl font-medium"
+              style={{ color: s.accent ?? 'var(--c-ink)', letterSpacing: '0' }}
             >
               {s.value}
             </div>
@@ -102,7 +102,7 @@ export default function ClientsView({ clients }: ClientsViewProps) {
                         </h3>
                         <PackageBadge pkg={c.package} />
                       </div>
-                      <p className="text-xs mt-0.5" style={{ color: '#64748b' }}>{c.project_name}</p>
+                      <p className="text-xs mt-0.5" style={{ color: 'var(--c-ink-2)' }}>{c.project_name}</p>
                       {c.contact_person && (
                         <p className="text-xs mt-0.5" style={{ color: 'var(--c-ink-3)' }}>{c.contact_person}</p>
                       )}
@@ -111,11 +111,11 @@ export default function ClientsView({ clients }: ClientsViewProps) {
                   <div className="flex flex-col items-end gap-2">
                     <span
                       className="text-xs px-2 py-0.5 rounded font-medium"
-                      style={{ background: meta.bg, color: meta.color, fontFamily: 'DM Mono, monospace' }}
+                      style={{ background: meta.bg, color: meta.color }}
                     >
                       {c.project_status}
                     </span>
-                    <span className="text-sm font-semibold" style={{ color: '#10b981', fontFamily: 'DM Mono, monospace' }}>
+                    <span className="text-sm font-semibold" style={{ color: 'var(--t-green)' }}>
                       {fmt(c.project_value)}
                     </span>
                   </div>
@@ -125,7 +125,7 @@ export default function ClientsView({ clients }: ClientsViewProps) {
                 <div className="mt-4 space-y-2">
                   <div className="flex items-center justify-between text-xs">
                     <span style={{ color: 'var(--c-ink-3)' }}>Payment</span>
-                    <span style={{ color: '#64748b', fontFamily: 'DM Mono, monospace' }}>
+                    <span style={{ color: 'var(--c-ink-2)' }}>
                       {fmt(c.amount_paid)} paid · {fmt(c.balance)} outstanding
                     </span>
                   </div>
@@ -136,13 +136,13 @@ export default function ClientsView({ clients }: ClientsViewProps) {
                 <div className="mt-3 flex items-center gap-4 text-xs" style={{ color: 'var(--c-ink-3)' }}>
                   <span>
                     Started:{' '}
-                    <span style={{ color: '#64748b', fontFamily: 'DM Mono, monospace' }}>
+                    <span style={{ color: 'var(--c-ink-2)' }}>
                       {new Date(c.start_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                     </span>
                   </span>
                   <span>
                     Deadline:{' '}
-                    <span style={{ color: '#64748b', fontFamily: 'DM Mono, monospace' }}>
+                    <span style={{ color: 'var(--c-ink-2)' }}>
                       {new Date(c.deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                     </span>
                   </span>
