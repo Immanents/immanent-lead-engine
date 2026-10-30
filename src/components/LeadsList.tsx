@@ -47,10 +47,10 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+          <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
             Leads
           </h1>
-          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+          <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
             {leads.length} total · {leads.filter((l) => !['WON', 'LOST', 'ARCHIVED'].includes(l.status)).length} active
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
           <button
             onClick={onAddLead}
             className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md font-medium transition-colors"
-            style={{ background: '#f97316', color: '#fff' }}
+            style={{ background: 'var(--c-primary-l)', color: '#fff' }}
           >
             <Plus size={13} />
             Add Lead
@@ -91,7 +91,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
               background: 'var(--c-surface-2)',
               border: '1px solid var(--c-edge)',
               color: 'var(--c-ink)',
-              fontFamily: 'Inter, sans-serif',
+
             }}
           />
         </div>
@@ -104,7 +104,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
             background: 'var(--c-surface-2)',
             border: '1px solid var(--c-edge)',
             color: 'var(--c-ink-2)',
-            fontFamily: 'DM Mono, monospace',
+
             fontSize: 11,
           }}
         >
@@ -121,7 +121,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
             background: 'var(--c-surface-2)',
             border: '1px solid var(--c-edge)',
             color: 'var(--c-ink-2)',
-            fontFamily: 'DM Mono, monospace',
+
             fontSize: 11,
           }}
         >
@@ -151,7 +151,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                 <div className="text-sm font-medium truncate" style={{ color: 'var(--c-ink)' }}>
                   {lead.business_name}
                 </div>
-                <div className="text-xs mt-0.5 truncate" style={{ color: '#64748b' }}>
+                <div className="text-xs mt-0.5 truncate" style={{ color: 'var(--c-ink-2)' }}>
                   {lead.industry} · {lead.location}
                 </div>
                 {lead.contact_person && (
@@ -168,15 +168,15 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                 {lead.recommended_package && <PackageBadge pkg={lead.recommended_package} />}
                 <span
                   className="text-xs px-1.5 py-0.5 rounded"
-                  style={{ background: 'var(--c-surface-2)', color: '#64748b', fontFamily: 'DM Mono, monospace' }}
+                  style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)' }}
                 >
                   {lead.source}
                 </span>
                 <span
                   className="text-xs"
                   style={{
-                    color: lead.website_status === 'none' ? '#f43f5e' : lead.website_status === 'poor' || lead.website_status === 'outdated' ? '#f59e0b' : '#10b981',
-                    fontFamily: 'DM Mono, monospace',
+                    color: lead.website_status === 'none' ? 'var(--t-red)' : lead.website_status === 'poor' || lead.website_status === 'outdated' ? 'var(--t-amber)' : 'var(--t-green)',
+
                   }}
                 >
                   {WEBSITE_LABELS[lead.website_status ?? 'none'] ?? '—'}
@@ -195,7 +195,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                     <button
                       onClick={() => setConfirmDeleteId(null)}
                       className="text-xs px-2 py-0.5 rounded"
-                      style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}
+                      style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
                     >
                       Cancel
                     </button>
@@ -228,7 +228,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                   <th
                     key={h}
                     className="px-4 py-2.5 text-left text-xs font-medium"
-                    style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', letterSpacing: '0.04em' }}
+                    style={{ color: 'var(--c-ink-3)', letterSpacing: '0.04em' }}
                   >
                     {h}
                   </th>
@@ -263,7 +263,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                 <td className="px-4 py-3">
                   <span
                     className="text-xs px-1.5 py-0.5 rounded"
-                    style={{ background: 'var(--c-surface-2)', color: '#64748b', fontFamily: 'DM Mono, monospace' }}
+                    style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)' }}
                   >
                     {lead.source}
                   </span>
@@ -272,8 +272,8 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                   <span
                     className="text-xs"
                     style={{
-                      color: lead.website_status === 'none' ? '#f43f5e' : lead.website_status === 'poor' || lead.website_status === 'outdated' ? '#f59e0b' : '#10b981',
-                      fontFamily: 'DM Mono, monospace',
+                      color: lead.website_status === 'none' ? 'var(--t-red)' : lead.website_status === 'poor' || lead.website_status === 'outdated' ? 'var(--t-amber)' : 'var(--t-green)',
+
                     }}
                   >
                     {WEBSITE_LABELS[lead.website_status ?? 'none'] ?? '—'}
@@ -297,7 +297,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                       <button
                         onClick={() => setConfirmDeleteId(null)}
                         className="text-xs px-2 py-0.5 rounded"
-                        style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}
+                        style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
                       >
                         Cancel
                       </button>
@@ -307,7 +307,7 @@ export default function LeadsList({ leads, onViewLead, onAddLead, onImportCsv, o
                       onClick={() => setConfirmDeleteId(lead.id)}
                       className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded"
                       style={{ color: 'var(--c-ink-3)' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = '#f43f5e')}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--t-red)')}
                       onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--c-ink-3)')}
                     >
                       <Trash2 size={13} />
