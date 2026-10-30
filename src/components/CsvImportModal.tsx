@@ -283,7 +283,7 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <FileText size={16} style={{ color: '#f97316' }} />
+            <FileText size={16} style={{ color: 'var(--c-primary-l)' }} />
             <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--c-ink)' }}>Import CSV / Excel</span>
           </div>
           <button onClick={onClose} style={{ color: 'var(--c-ink-3)', background: 'none', border: 'none', cursor: 'pointer' }}>
@@ -307,7 +307,7 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
                   cursor: 'pointer',
                   transition: 'border-color 0.15s',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#f97316')}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--c-primary-l)')}
                 onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--c-edge)')}
               >
                 <Upload size={32} style={{ color: 'var(--c-edge-2)', margin: '0 auto 12px' }} />
@@ -329,26 +329,26 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
               {/* Options */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: 11, color: 'var(--c-ink-3)', marginBottom: 5, fontFamily: 'DM Mono, monospace' }}>
+                  <label style={{ display: 'block', fontSize: 11, color: 'var(--c-ink-3)', marginBottom: 5 }}>
                     Default Source
                   </label>
                   <select
                     value={defaultSource}
                     onChange={(e) => setDefaultSource(e.target.value as LeadSource)}
-                    style={{ width: '100%', background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', borderRadius: 6, padding: '7px 10px', fontSize: 13, color: 'var(--c-ink-2)', outline: 'none', fontFamily: 'DM Mono, monospace' }}
+                    style={{ width: '100%', background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', borderRadius: 6, padding: '7px 10px', fontSize: 13, color: 'var(--c-ink-2)', outline: 'none' }}
                   >
                     {VALID_SOURCES.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
                 {campaigns.length > 0 && (
                   <div>
-                    <label style={{ display: 'block', fontSize: 11, color: 'var(--c-ink-3)', marginBottom: 5, fontFamily: 'DM Mono, monospace' }}>
+                    <label style={{ display: 'block', fontSize: 11, color: 'var(--c-ink-3)', marginBottom: 5 }}>
                       Assign to Campaign
                     </label>
                     <select
                       value={campaignId}
                       onChange={(e) => setCampaignId(e.target.value)}
-                      style={{ width: '100%', background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', borderRadius: 6, padding: '7px 10px', fontSize: 13, color: 'var(--c-ink-2)', outline: 'none', fontFamily: 'DM Mono, monospace' }}
+                      style={{ width: '100%', background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', borderRadius: 6, padding: '7px 10px', fontSize: 13, color: 'var(--c-ink-2)', outline: 'none' }}
                     >
                       <option value="">No campaign</option>
                       {campaigns.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -359,12 +359,12 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
 
               {/* Column guide */}
               <div style={{ background: 'var(--c-surface-2)', borderRadius: 8, padding: '12px 16px' }}>
-                <p style={{ fontSize: 11, color: 'var(--c-ink-3)', marginBottom: 8, fontFamily: 'DM Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <p style={{ fontSize: 11, color: 'var(--c-ink-3)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Recognised column headers
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                   {['Business Name', 'Industry', 'Location', 'Website', 'Website Status', 'Phone', 'Email', 'Instagram', 'Facebook', 'LinkedIn', 'Contact Person', 'Source', 'Notes'].map((h) => (
-                    <span key={h} style={{ fontSize: 11, background: 'var(--c-surface-3)', color: 'var(--c-primary-l)', borderRadius: 4, padding: '2px 8px', fontFamily: 'DM Mono, monospace' }}>
+                    <span key={h} style={{ fontSize: 11, background: 'var(--c-surface-3)', color: 'var(--c-primary-l)', borderRadius: 4, padding: '2px 8px' }}>
                       {h}
                     </span>
                   ))}
@@ -388,7 +388,7 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
                   {parsedRows.length} leads ready to import
                 </div>
                 {skipped > 0 && (
-                  <div style={{ background: 'var(--t-amber-bg)', border: '1px solid var(--t-amber-bd)', borderRadius: 8, padding: '8px 14px', fontSize: 13, color: '#f59e0b' }}>
+                  <div style={{ background: 'var(--t-amber-bg)', border: '1px solid var(--t-amber-bd)', borderRadius: 8, padding: '8px 14px', fontSize: 13, color: 'var(--t-amber)' }}>
                     {skipped} rows skipped (missing business name)
                   </div>
                 )}
@@ -400,7 +400,7 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
                   <thead>
                     <tr style={{ background: 'var(--c-surface-2)', borderBottom: '1px solid var(--c-edge)' }}>
                       {['Business', 'Industry', 'Location', 'Website', 'Source'].map((h) => (
-                        <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', whiteSpace: 'nowrap' }}>
+                        <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, color: 'var(--c-ink-3)', whiteSpace: 'nowrap' }}>
                           {h}
                         </th>
                       ))}
@@ -412,16 +412,16 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
                         <td style={{ padding: '7px 12px', fontSize: 12, color: 'var(--c-ink)', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {row.business_name}
                         </td>
-                        <td style={{ padding: '7px 12px', fontSize: 12, color: '#64748b', whiteSpace: 'nowrap' }}>
+                        <td style={{ padding: '7px 12px', fontSize: 12, color: 'var(--c-ink-2)', whiteSpace: 'nowrap' }}>
                           {row.industry || '—'}
                         </td>
-                        <td style={{ padding: '7px 12px', fontSize: 12, color: '#64748b', whiteSpace: 'nowrap' }}>
+                        <td style={{ padding: '7px 12px', fontSize: 12, color: 'var(--c-ink-2)', whiteSpace: 'nowrap' }}>
                           {row.location || '—'}
                         </td>
-                        <td style={{ padding: '7px 12px', fontSize: 12, color: row.website_status === 'none' ? '#f43f5e' : '#64748b', fontFamily: 'DM Mono, monospace' }}>
+                        <td style={{ padding: '7px 12px', fontSize: 12, color: row.website_status === 'none' ? 'var(--t-red)' : 'var(--c-ink-2)' }}>
                           {row.website_status?.toUpperCase() || 'NONE'}
                         </td>
-                        <td style={{ padding: '7px 12px', fontSize: 11, color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', whiteSpace: 'nowrap' }}>
+                        <td style={{ padding: '7px 12px', fontSize: 11, color: 'var(--c-ink-3)', whiteSpace: 'nowrap' }}>
                           {row.source}
                         </td>
                       </tr>
@@ -447,13 +447,13 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
               <div style={{ display: 'flex', gap: 10 }}>
                 <button
                   onClick={handleImport}
-                  style={{ flex: 1, padding: '10px 0', borderRadius: 8, fontSize: 14, fontWeight: 600, background: '#f97316', color: '#fff', border: 'none', cursor: 'pointer' }}
+                  style={{ flex: 1, padding: '10px 0', borderRadius: 8, fontSize: 14, fontWeight: 600, background: 'var(--c-primary-l)', color: '#fff', border: 'none', cursor: 'pointer' }}
                 >
                   Import {parsedRows.length} Leads
                 </button>
                 <button
                   onClick={() => { setStep('upload'); setParsedRows([]); setError(null) }}
-                  style={{ padding: '10px 16px', borderRadius: 8, fontSize: 14, background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)', cursor: 'pointer' }}
+                  style={{ padding: '10px 16px', borderRadius: 8, fontSize: 14, background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)', cursor: 'pointer' }}
                 >
                   Back
                 </button>
@@ -464,7 +464,7 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
           {/* Step: Importing */}
           {step === 'importing' && (
             <div style={{ textAlign: 'center', padding: '48px 0' }}>
-              <Loader2 size={32} style={{ color: '#f97316', margin: '0 auto 16px', animation: 'spin 1s linear infinite' }} />
+              <Loader2 size={32} style={{ color: 'var(--c-primary-l)', margin: '0 auto 16px', animation: 'spin 1s linear infinite' }} />
               <p style={{ fontSize: 14, color: 'var(--c-ink-2)' }}>Importing {parsedRows.length} leads…</p>
               <p style={{ fontSize: 12, color: 'var(--c-ink-3)', marginTop: 4 }}>This may take a moment</p>
             </div>
@@ -473,16 +473,16 @@ export default function CsvImportModal({ onClose, onImport, campaigns }: CsvImpo
           {/* Step: Done */}
           {step === 'done' && (
             <div style={{ textAlign: 'center', padding: '48px 0' }}>
-              <CheckCircle size={40} style={{ color: '#10b981', margin: '0 auto 16px' }} />
+              <CheckCircle size={40} style={{ color: 'var(--t-green)', margin: '0 auto 16px' }} />
               <p style={{ fontSize: 16, fontWeight: 600, color: 'var(--c-ink)', marginBottom: 6 }}>
                 Import Complete
               </p>
-              <p style={{ fontSize: 13, color: '#64748b', marginBottom: 24 }}>
+              <p style={{ fontSize: 13, color: 'var(--c-ink-2)', marginBottom: 24 }}>
                 {importedCount} leads added to your pipeline
               </p>
               <button
                 onClick={onClose}
-                style={{ padding: '10px 28px', borderRadius: 8, fontSize: 14, fontWeight: 600, background: '#f97316', color: '#fff', border: 'none', cursor: 'pointer' }}
+                style={{ padding: '10px 28px', borderRadius: 8, fontSize: 14, fontWeight: 600, background: 'var(--c-primary-l)', color: '#fff', border: 'none', cursor: 'pointer' }}
               >
                 Go to Leads
               </button>
