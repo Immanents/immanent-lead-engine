@@ -91,10 +91,10 @@ function Row({ label, value, mono }: { label: string; value?: string | number; m
   if (!value && value !== 0) return null
   return (
     <div className="flex items-start gap-4 py-1.5">
-      <span className="text-xs w-32 flex-shrink-0 pt-0.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>
+      <span className="text-xs w-32 flex-shrink-0 pt-0.5" style={{ color: 'var(--c-ink-3)' }}>
         {label}
       </span>
-      <span className="text-xs flex-1" style={{ color: 'var(--c-ink-2)', fontFamily: mono ? 'DM Mono, monospace' : 'Inter, sans-serif' }}>
+      <span className="text-xs flex-1" style={{ color: 'var(--c-ink-2)', fontFamily: mono ? 'ui-monospace, SFMono-Regular, Menlo, monospace' : undefined }}>
         {value}
       </span>
     </div>
@@ -103,18 +103,18 @@ function Row({ label, value, mono }: { label: string; value?: string | number; m
 
 function StatusChip({ status }: { status: Outreach['status'] }) {
   const map: Record<string, { bg: string; color: string }> = {
-    DRAFT: { bg: 'var(--c-surface-2)', color: '#64748b' },
-    PENDING_APPROVAL: { bg: 'var(--t-amber-bg)', color: '#f59e0b' },
-    APPROVED: { bg: 'var(--t-green-bg)', color: '#10b981' },
+    DRAFT: { bg: 'var(--c-surface-2)', color: 'var(--c-ink-2)' },
+    PENDING_APPROVAL: { bg: 'var(--t-amber-bg)', color: 'var(--t-amber)' },
+    APPROVED: { bg: 'var(--t-green-bg)', color: 'var(--t-green)' },
     SENT: { bg: 'var(--c-surface)', color: 'var(--c-primary-l)' },
     REPLIED: { bg: 'var(--t-green-bg)', color: 'var(--t-green)' },
-    NO_RESPONSE: { bg: 'var(--t-red-bg)', color: '#f43f5e' },
+    NO_RESPONSE: { bg: 'var(--t-red-bg)', color: 'var(--t-red)' },
   }
   const s = map[status] ?? map.DRAFT
   return (
     <span
       className="text-xs px-2 py-0.5 rounded"
-      style={{ background: s.bg, color: s.color, fontFamily: 'DM Mono, monospace', fontSize: 10 }}
+      style={{ background: s.bg, color: s.color, fontSize: 10 }}
     >
       {status.replace('_', ' ')}
     </span>
@@ -356,25 +356,25 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-sm transition-colors mt-1 flex-shrink-0"
-          style={{ color: '#64748b' }}
+          style={{ color: 'var(--c-ink-2)' }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--c-ink-2)')}
-          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = '#64748b')}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--c-ink-2)')}
         >
           <ArrowLeft size={14} />
           <span className="hidden sm:inline">Leads</span>
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-xl font-semibold truncate" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+            <h1 className="text-lg sm:text-2xl font-medium truncate" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
               {lead.business_name}
             </h1>
             <StatusBadge status={lead.status} />
             <PriorityBadge priority={lead.priority} />
           </div>
           <div className="flex flex-wrap items-center gap-2 mt-1">
-            <span className="text-sm" style={{ color: '#64748b' }}>{lead.industry}</span>
+            <span className="text-sm" style={{ color: 'var(--c-ink-2)' }}>{lead.industry}</span>
             <span style={{ color: 'var(--c-edge-2)' }}>·</span>
-            <span className="text-sm flex items-center gap-1" style={{ color: '#64748b' }}>
+            <span className="text-sm flex items-center gap-1" style={{ color: 'var(--c-ink-2)' }}>
               <MapPin size={12} />
               {lead.location}
             </span>
@@ -386,11 +386,11 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
           style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)', minWidth: 64 }}
         >
           <span
-            className="text-xl font-semibold"
+            className="text-2xl font-medium"
             style={{
-              color: lead.lead_score >= 80 ? '#f43f5e' : lead.lead_score >= 60 ? '#10b981' : '#f59e0b',
-              fontFamily: 'DM Mono, monospace',
-              letterSpacing: '-0.02em',
+              color: lead.lead_score >= 80 ? 'var(--t-red)' : lead.lead_score >= 60 ? 'var(--t-green)' : 'var(--t-amber)',
+
+              letterSpacing: '0',
             }}
           >
             {lead.lead_score}
@@ -401,12 +401,12 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
 
       {/* Action bar */}
       <div className="rounded-lg px-4 py-3 flex flex-wrap items-center gap-2" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-        <span className="text-xs" style={{ color: '#64748b', fontFamily: 'DM Mono, monospace' }}>Status:</span>
+        <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>Status:</span>
         <select
           value={lead.status}
           onChange={(e) => onUpdateStatus(lead.id, e.target.value as LeadStatus)}
           className="text-xs rounded px-2 py-1 outline-none"
-          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}
+          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)' }}
         >
           {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
@@ -416,7 +416,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             onClick={runAnalysis}
             disabled={isAnalyzing}
             className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md font-medium transition-opacity"
-            style={{ background: '#f97316', color: '#fff', opacity: isAnalyzing ? 0.6 : 1 }}
+            style={{ background: 'var(--c-primary-l)', color: '#fff', opacity: isAnalyzing ? 0.6 : 1 }}
           >
             <Zap size={13} />
             {isAnalyzing ? 'Analyzing...' : 'Analyze with AI'}
@@ -465,18 +465,18 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             className="px-4 py-2.5 text-sm font-medium capitalize transition-colors"
             style={{
               color: activeTab === tab ? 'var(--c-ink)' : 'var(--c-ink-3)',
-              borderBottom: activeTab === tab ? '2px solid #f97316' : '2px solid transparent',
+              borderBottom: activeTab === tab ? '2px solid var(--c-primary-l)' : '2px solid transparent',
               marginBottom: -1,
             }}
           >
             {tab === 'ai' ? 'AI Analysis' : tab.charAt(0).toUpperCase() + tab.slice(1)}
             {tab === 'ai' && hasAI && (
-              <span className="ml-1.5 text-xs px-1 py-0.5 rounded" style={{ background: 'var(--t-orange-bg)', color: 'var(--c-primary-l)', fontFamily: 'DM Mono, monospace' }}>
+              <span className="ml-1.5 text-xs px-1 py-0.5 rounded" style={{ background: 'var(--t-orange-bg)', color: 'var(--c-primary-l)' }}>
                 Done
               </span>
             )}
             {tab === 'outreach' && outreachRecords.length > 0 && (
-              <span className="ml-1.5 text-xs px-1 py-0.5 rounded" style={{ background: 'var(--c-surface-3)', color: '#64748b', fontFamily: 'DM Mono, monospace' }}>
+              <span className="ml-1.5 text-xs px-1 py-0.5 rounded" style={{ background: 'var(--c-surface-3)', color: 'var(--c-ink-2)' }}>
                 {outreachRecords.length}
               </span>
             )}
@@ -489,7 +489,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
           {/* Business info */}
           <div style={SECTION}>
-            <h3 className="text-xs font-medium mb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <h3 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Business Information
             </h3>
             <Row label="Industry" value={lead.industry} />
@@ -497,14 +497,14 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             <Row label="Source" value={lead.source} mono />
             {lead.description && (
               <div className="mt-3">
-                <p className="text-xs" style={{ color: '#64748b', lineHeight: 1.6 }}>{lead.description}</p>
+                <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.6 }}>{lead.description}</p>
               </div>
             )}
           </div>
 
           {/* Contact info */}
           <div style={SECTION}>
-            <h3 className="text-xs font-medium mb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <h3 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Contact
             </h3>
             {lead.contact_person && (
@@ -518,33 +518,33 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             {lead.phone && (
               <div className="flex items-center gap-2 py-1">
                 <Phone size={12} style={{ color: 'var(--c-ink-3)' }} />
-                <span className="text-xs" style={{ color: 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}>{lead.phone}</span>
+                <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{lead.phone}</span>
               </div>
             )}
             {lead.email && (
               <div className="flex items-center gap-2 py-1">
                 <Mail size={12} style={{ color: 'var(--c-ink-3)' }} />
-                <span className="text-xs" style={{ color: 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}>{lead.email}</span>
+                <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{lead.email}</span>
               </div>
             )}
           </div>
 
           {/* Online presence */}
           <div style={SECTION}>
-            <h3 className="text-xs font-medium mb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <h3 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Online Presence
             </h3>
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <Globe size={13} style={{ color: 'var(--c-ink-3)' }} />
-                <span className="text-xs" style={{ color: lead.website_status === 'none' ? '#f43f5e' : 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}>
+                <span className="text-xs" style={{ color: lead.website_status === 'none' ? 'var(--t-red)' : 'var(--c-ink-2)' }}>
                   {lead.website || 'nil'}
                 </span>
                 {lead.website_status && (
                   <span className="text-xs px-1.5 py-0.5 rounded ml-auto" style={{
                     background: 'var(--c-surface-2)',
-                    color: lead.website_status === 'none' || lead.website_status === 'poor' ? '#f43f5e' : lead.website_status === 'outdated' ? '#f59e0b' : '#10b981',
-                    fontFamily: 'DM Mono, monospace',
+                    color: lead.website_status === 'none' || lead.website_status === 'poor' ? 'var(--t-red)' : lead.website_status === 'outdated' ? 'var(--t-amber)' : 'var(--t-green)',
+
                     fontSize: 10,
                   }}>
                     {lead.website_status.toUpperCase()}
@@ -559,8 +559,8 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
               ] as const).map(([label, val, Icon]) => (
                 <div key={label} className="flex items-center gap-2">
                   <Icon size={13} style={{ color: 'var(--c-ink-3)' }} />
-                  <span className="text-xs w-16" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>{label}</span>
-                  <span className="text-xs" style={{ color: val ? 'var(--c-ink-2)' : 'var(--c-ink-3)', fontFamily: val ? undefined : 'DM Mono, monospace' }}>{val || 'nil'}</span>
+                  <span className="text-xs w-16" style={{ color: 'var(--c-ink-3)' }}>{label}</span>
+                  <span className="text-xs" style={{ color: val ? 'var(--c-ink-2)' : 'var(--c-ink-3)', fontFamily: val ? undefined : 'ui-monospace, SFMono-Regular, Menlo, monospace' }}>{val || 'nil'}</span>
                 </div>
               ))}
               {lead.facebook && (
@@ -580,14 +580,14 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
 
           {/* Opportunity */}
           <div style={SECTION}>
-            <h3 className="text-xs font-medium mb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <h3 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Opportunity
             </h3>
             {lead.recommended_package && (
               <div className="flex items-center gap-2 mb-3">
                 <PackageBadge pkg={lead.recommended_package} />
                 {lead.suggested_price && (
-                  <span className="text-sm font-semibold" style={{ color: '#10b981', fontFamily: 'DM Mono, monospace' }}>
+                  <span className="text-sm font-semibold" style={{ color: 'var(--t-green)' }}>
                     {fmt(lead.suggested_price)}
                   </span>
                 )}
@@ -609,7 +609,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
 
           {/* Timeline */}
           <div style={SECTION}>
-            <h3 className="text-xs font-medium mb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <h3 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Timeline
             </h3>
             <Row label="Created" value={new Date(lead.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} mono />
@@ -624,7 +624,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
           {/* Notes */}
           <div style={SECTION}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-medium" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+              <h3 className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Notes
               </h3>
               <button
@@ -640,7 +640,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                 onChange={(e) => setNotes(e.target.value)}
                 className="w-full text-xs rounded p-2 outline-none resize-none"
                 rows={4}
-                style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6, fontFamily: 'Inter, sans-serif' }}
+                style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6 }}
               />
             ) : (
               <p className="text-xs" style={{ color: notes ? 'var(--c-ink-2)' : 'var(--c-ink-3)', lineHeight: 1.6 }}>
@@ -662,7 +662,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                 <button
                   onClick={runAnalysis}
                   className="flex items-center gap-2 text-sm px-4 py-2 rounded-md font-medium"
-                  style={{ background: '#f97316', color: '#fff' }}
+                  style={{ background: 'var(--c-primary-l)', color: '#fff' }}
                 >
                   <Zap size={13} />
                   Analyze Lead with AI
@@ -670,7 +670,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                 <button
                   onClick={() => setShowManual(!showManual)}
                   className="flex items-center gap-2 text-sm px-4 py-2 rounded-md"
-                  style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}
+                  style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
                 >
                   <Edit3 size={13} />
                   Enter Manually
@@ -681,8 +681,8 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
 
           {isAnalyzing && (
             <div className="rounded-lg flex flex-col items-center justify-center py-16" style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}>
-              <div className="rounded-full animate-spin" style={{ width: 32, height: 32, border: '2px solid var(--c-edge)', borderTopColor: '#f97316' }} />
-              <p className="text-sm mt-4" style={{ color: '#64748b' }}>Analyzing {lead.business_name}...</p>
+              <div className="rounded-full animate-spin" style={{ width: 32, height: 32, border: '2px solid var(--c-edge)', borderTopColor: 'var(--c-primary-l)' }} />
+              <p className="text-sm mt-4" style={{ color: 'var(--c-ink-2)' }}>Analyzing {lead.business_name}...</p>
               <p className="text-xs mt-1" style={{ color: 'var(--c-ink-3)' }}>Crawling website and scoring opportunity</p>
             </div>
           )}
@@ -691,22 +691,22 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             <div className="grid gap-4 grid-cols-1">
               <div style={SECTION}>
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="text-xs font-medium" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+                  <h3 className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     AI Analysis
                   </h3>
-                  <div className="flex items-center gap-1.5 text-xs px-2 py-0.5 rounded" style={{ background: 'var(--t-orange-bg)', color: 'var(--c-primary-l)', fontFamily: 'DM Mono, monospace' }}>
+                  <div className="flex items-center gap-1.5 text-xs px-2 py-0.5 rounded" style={{ background: 'var(--t-orange-bg)', color: 'var(--c-primary-l)' }}>
                     <Zap size={10} />
                     Score: {lead.ai_analysis.lead_score}
                   </div>
                   <PackageBadge pkg={lead.ai_analysis.recommended_package} />
-                  <span className="font-semibold" style={{ color: '#10b981', fontFamily: 'DM Mono, monospace' }}>
+                  <span className="font-semibold" style={{ color: 'var(--t-green)' }}>
                     {fmt(lead.ai_analysis.suggested_price)}
                   </span>
                   {lead.ai_analysis.confidence && (
                     <span className="text-xs px-2 py-0.5 rounded ml-auto" style={{
                       background: 'var(--c-surface-2)',
-                      color: lead.ai_analysis.confidence === 'high' ? '#10b981' : lead.ai_analysis.confidence === 'medium' ? '#f59e0b' : '#f43f5e',
-                      fontFamily: 'DM Mono, monospace',
+                      color: lead.ai_analysis.confidence === 'high' ? 'var(--t-green)' : lead.ai_analysis.confidence === 'medium' ? 'var(--t-amber)' : 'var(--t-red)',
+
                       fontSize: 10,
                     }}>
                       {lead.ai_analysis.confidence.toUpperCase()} CONFIDENCE
@@ -723,17 +723,17 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                     ['Recommended Solution', lead.ai_analysis.recommended_solution],
                   ].map(([label, value]) => (
                     <div key={label}>
-                      <div className="text-xs font-medium mb-1" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>{label}</div>
+                      <div className="text-xs font-medium mb-1" style={{ color: 'var(--c-ink-3)' }}>{label}</div>
                       <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.6 }}>{value}</p>
                     </div>
                   ))}
                   <div style={{ gridColumn: '1 / -1' }}>
-                    <div className="text-xs font-medium mb-1" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Score Rationale</div>
+                    <div className="text-xs font-medium mb-1" style={{ color: 'var(--c-ink-3)' }}>Score Rationale</div>
                     <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.6 }}>{lead.ai_analysis.reason_for_score}</p>
                   </div>
                   {lead.ai_analysis.website_evidence && lead.ai_analysis.website_evidence.length > 0 && (
                     <div style={{ gridColumn: '1 / -1' }}>
-                      <div className="text-xs font-medium mb-2" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Website Evidence</div>
+                      <div className="text-xs font-medium mb-2" style={{ color: 'var(--c-ink-3)' }}>Website Evidence</div>
                       <ul className="space-y-1">
                         {lead.ai_analysis.website_evidence.map((e, i) => (
                           <li key={i} className="flex items-start gap-2 text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.6 }}>
@@ -749,26 +749,26 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
 
               {(lead.ai_pitch || pitchDraft) && (
                 <div style={SECTION}>
-                  <p className="text-xs mb-4" style={{ color: '#64748b', fontStyle: 'italic', lineHeight: 1.6 }}>
-                    <span className="font-medium not-italic" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em', fontSize: 10 }}>Angle: </span>
+                  <p className="text-xs mb-4" style={{ color: 'var(--c-ink-2)', fontStyle: 'italic', lineHeight: 1.6 }}>
+                    <span className="font-medium not-italic" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontSize: 10 }}>Angle: </span>
                     {lead.ai_analysis?.suggested_outreach_angle}
                   </p>
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xs font-medium" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+                    <h3 className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                       Message Draft
                     </h3>
                     <div className="flex gap-1.5">
-                      <button onClick={copyPitch} className="flex items-center gap-1 text-xs px-2.5 py-1 rounded" style={{ background: 'var(--c-surface-2)', color: copied ? 'var(--t-green)' : '#64748b', border: '1px solid var(--c-edge)' }}>
+                      <button onClick={copyPitch} className="flex items-center gap-1 text-xs px-2.5 py-1 rounded" style={{ background: 'var(--c-surface-2)', color: copied ? 'var(--t-green)' : 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}>
                         {copied ? <CheckCheck size={11} /> : <Copy size={11} />}
                         {copied ? 'Copied' : 'Copy'}
                       </button>
                       {!editingPitch ? (
-                        <button onClick={() => setEditingPitch(true)} className="flex items-center gap-1 text-xs px-2.5 py-1 rounded" style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}>
+                        <button onClick={() => setEditingPitch(true)} className="flex items-center gap-1 text-xs px-2.5 py-1 rounded" style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}>
                           <Edit3 size={11} />
                           Edit
                         </button>
                       ) : (
-                        <button onClick={savePitch} disabled={savingPitch} className="flex items-center gap-1 text-xs px-2.5 py-1 rounded font-medium" style={{ background: '#f97316', color: '#fff', opacity: savingPitch ? 0.6 : 1 }}>
+                        <button onClick={savePitch} disabled={savingPitch} className="flex items-center gap-1 text-xs px-2.5 py-1 rounded font-medium" style={{ background: 'var(--c-primary-l)', color: '#fff', opacity: savingPitch ? 0.6 : 1 }}>
                           <Check size={11} />
                           {savingPitch ? 'Saving...' : 'Save'}
                         </button>
@@ -780,7 +780,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                       value={pitchDraft}
                       onChange={(e) => setPitchDraft(e.target.value)}
                       className="w-full rounded p-4 text-sm"
-                      style={{ background: 'var(--c-bg)', border: '1px solid #f97316', color: 'var(--c-ink)', lineHeight: 1.7, minHeight: 200, resize: 'vertical', outline: 'none', fontFamily: 'Inter, sans-serif' }}
+                      style={{ background: 'var(--c-bg)', border: '1px solid var(--c-primary-l)', color: 'var(--c-ink)', lineHeight: 1.7, minHeight: 200, resize: 'vertical', outline: 'none' }}
                     />
                   ) : (
                     <div className="rounded p-4" style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)' }}>
@@ -799,12 +799,12 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                 onClick={() => setShowManual(!showManual)}
                 className="flex items-center justify-between w-full"
               >
-                <h3 className="text-xs font-medium" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+                <h3 className="text-xs font-medium" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                   Manual Assessment
                 </h3>
                 <div className="flex items-center gap-2">
                   {manualSaved && (
-                    <span className="text-xs flex items-center gap-1" style={{ color: '#10b981' }}>
+                    <span className="text-xs flex items-center gap-1" style={{ color: 'var(--t-green)' }}>
                       <Check size={10} /> Saved
                     </span>
                   )}
@@ -816,38 +816,38 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                 <div className="mt-4 space-y-3">
                   <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
                     <div>
-                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Primary Problem</label>
+                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Primary Problem</label>
                       <textarea
                         value={manualProblem}
                         onChange={(e) => setManualProblem(e.target.value)}
                         rows={3}
                         className="w-full text-xs rounded p-2 outline-none resize-none"
-                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6, fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6 }}
                       />
                     </div>
                     <div>
-                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Business Opportunity</label>
+                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Business Opportunity</label>
                       <textarea
                         value={manualOpportunity}
                         onChange={(e) => setManualOpportunity(e.target.value)}
                         rows={3}
                         className="w-full text-xs rounded p-2 outline-none resize-none"
-                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6, fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6 }}
                       />
                     </div>
                     <div>
-                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Recommended Solution</label>
+                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Recommended Solution</label>
                       <textarea
                         value={manualSolution}
                         onChange={(e) => setManualSolution(e.target.value)}
                         rows={2}
                         className="w-full text-xs rounded p-2 outline-none resize-none"
-                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6, fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.6 }}
                       />
                     </div>
                     <div className="grid gap-3 grid-cols-2">
                       <div>
-                        <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Package</label>
+                        <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Package</label>
                         <select
                           value={manualPackage}
                           onChange={(e) => {
@@ -857,23 +857,23 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                             if (pkg) setManualPrice(pkg.price)
                           }}
                           className="w-full text-xs rounded px-2 py-1.5 outline-none"
-                          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}
+                          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)' }}
                         >
                           {PACKAGES.map((p) => <option key={p.value} value={p.value}>{p.label}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Price (₦)</label>
+                        <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Price (₦)</label>
                         <input
                           type="number"
                           value={manualPrice}
                           onChange={(e) => setManualPrice(Number(e.target.value))}
                           className="w-full text-xs rounded px-2 py-1.5 outline-none"
-                          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}
+                          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)' }}
                         />
                       </div>
                       <div style={{ gridColumn: '1 / -1' }}>
-                        <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Lead Score (0–100)</label>
+                        <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Lead Score (0–100)</label>
                         <input
                           type="number"
                           min={0}
@@ -881,18 +881,18 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                           value={manualScore}
                           onChange={(e) => setManualScore(Math.min(100, Math.max(0, Number(e.target.value))))}
                           className="w-full text-xs rounded px-2 py-1.5 outline-none"
-                          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', fontFamily: 'DM Mono, monospace' }}
+                          style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)' }}
                         />
                       </div>
                     </div>
                     <div style={{ gridColumn: '1 / -1' }}>
-                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>Outreach Message</label>
+                      <label className="text-xs mb-1 block" style={{ color: 'var(--c-ink-3)' }}>Outreach Message</label>
                       <textarea
                         value={manualMessage}
                         onChange={(e) => setManualMessage(e.target.value)}
                         rows={6}
                         className="w-full text-xs rounded p-2 outline-none resize-none"
-                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
+                        style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-edge)', color: 'var(--c-ink-2)', lineHeight: 1.7 }}
                       />
                     </div>
                   </div>
@@ -900,7 +900,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                     onClick={handleSaveManual}
                     disabled={savingManual}
                     className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md font-medium"
-                    style={{ background: '#f97316', color: '#fff', opacity: savingManual ? 0.6 : 1 }}
+                    style={{ background: 'var(--c-primary-l)', color: '#fff', opacity: savingManual ? 0.6 : 1 }}
                   >
                     <Check size={11} />
                     {savingManual ? 'Saving...' : 'Save Assessment'}
@@ -917,7 +917,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
         <div className="space-y-4">
           {/* Compose */}
           <div style={SECTION}>
-            <h3 className="text-xs font-medium mb-4" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+            <h3 className="text-xs font-medium mb-4" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               New Message
             </h3>
 
@@ -925,7 +925,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             <div className="space-y-3 mb-4 p-3 rounded-md" style={{ background: 'var(--c-bg)', border: '1px solid var(--c-edge)' }}>
               {/* Channel */}
               <div>
-                <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>CHANNEL</div>
+                <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>CHANNEL</div>
                 <div className="flex flex-wrap gap-1.5">
                   {CHANNELS.map((ch) => (
                     <button
@@ -935,7 +935,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                       style={{
                         background: channel === ch.value ? 'var(--c-edge-2)' : 'var(--c-surface-2)',
                         color: channel === ch.value ? 'var(--c-primary-l)' : 'var(--c-ink-3)',
-                        border: channel === ch.value ? '1px solid #f97316' : '1px solid var(--c-edge)',
+                        border: channel === ch.value ? '1px solid var(--c-primary-l)' : '1px solid var(--c-edge)',
                       }}
                     >
                       <span>{ch.emoji}</span>{ch.label}
@@ -946,7 +946,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
 
               {/* Angle */}
               <div>
-                <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>MESSAGE ANGLE</div>
+                <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>MESSAGE ANGLE</div>
                 <div className="flex flex-wrap gap-1.5">
                   {ANGLES.map((a) => (
                     <button
@@ -956,7 +956,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                       style={{
                         background: outreachAngle === a.value ? 'var(--c-surface-3)' : 'var(--c-surface-2)',
                         color: outreachAngle === a.value ? 'var(--c-primary-l)' : 'var(--c-ink-3)',
-                        border: outreachAngle === a.value ? '1px solid #f97316' : '1px solid var(--c-edge)',
+                        border: outreachAngle === a.value ? '1px solid var(--c-primary-l)' : '1px solid var(--c-edge)',
                       }}
                     >
                       {a.label}
@@ -968,7 +968,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
               {/* Tone + Length */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>TONE</div>
+                  <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>TONE</div>
                   <div className="flex flex-wrap gap-1.5">
                     {TONES.map((t) => (
                       <button
@@ -978,7 +978,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                         style={{
                           background: outreachTone === t.value ? 'var(--c-surface-3)' : 'var(--c-surface-2)',
                           color: outreachTone === t.value ? 'var(--c-primary-l)' : 'var(--c-ink-3)',
-                          border: outreachTone === t.value ? '1px solid #f97316' : '1px solid var(--c-edge)',
+                          border: outreachTone === t.value ? '1px solid var(--c-primary-l)' : '1px solid var(--c-edge)',
                         }}
                       >
                         {t.label}
@@ -987,7 +987,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                   </div>
                 </div>
                 <div>
-                  <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>LENGTH</div>
+                  <div className="text-xs mb-1.5" style={{ color: 'var(--c-ink-3)' }}>LENGTH</div>
                   <div className="flex gap-1.5">
                     {LENGTHS.map((l) => (
                       <button
@@ -997,7 +997,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                         style={{
                           background: outreachLength === l.value ? 'var(--c-surface-3)' : 'var(--c-surface-2)',
                           color: outreachLength === l.value ? 'var(--c-primary-l)' : 'var(--c-ink-3)',
-                          border: outreachLength === l.value ? '1px solid #f97316' : '1px solid var(--c-edge)',
+                          border: outreachLength === l.value ? '1px solid var(--c-primary-l)' : '1px solid var(--c-edge)',
                         }}
                       >
                         {l.label}
@@ -1013,7 +1013,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                   onClick={handleGenerateOutreach}
                   disabled={isGenerating || !hasAI}
                   className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md font-medium transition-opacity"
-                  style={{ background: '#f97316', color: '#fff', opacity: isGenerating || !hasAI ? 0.6 : 1 }}
+                  style={{ background: 'var(--c-primary-l)', color: '#fff', opacity: isGenerating || !hasAI ? 0.6 : 1 }}
                 >
                   <Zap size={11} className={isGenerating ? 'animate-pulse' : ''} />
                   {isGenerating ? 'Generating...' : outreachMessage ? 'Regenerate Message' : 'Generate Message'}
@@ -1034,36 +1034,36 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
             {/* Personalization Panel */}
             {personalization && (personalization.business_detail || personalization.relevant_observation || personalization.business_opportunity) && (
               <div className="mb-3 rounded-md p-3 space-y-2" style={{ background: 'var(--c-bg)', border: '1px solid var(--c-edge)' }}>
-                <div className="text-xs font-medium" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                <div className="text-xs font-medium" style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                   Personalization Used
                 </div>
                 {limitedEvidence && (
-                  <div className="text-xs flex items-center gap-1.5 py-1" style={{ color: '#f59e0b' }}>
+                  <div className="text-xs flex items-center gap-1.5 py-1" style={{ color: 'var(--t-amber)' }}>
                     <AlertCircle size={11} />
                     Limited evidence — no website data. Message uses business details only.
                   </div>
                 )}
                 {personalization.business_detail && (
                   <div>
-                    <div className="text-xs mb-0.5" style={{ color: 'var(--c-edge-2)', fontFamily: 'DM Mono, monospace' }}>Business detail</div>
-                    <p className="text-xs" style={{ color: '#64748b', lineHeight: 1.5 }}>{personalization.business_detail}</p>
+                    <div className="text-xs mb-0.5" style={{ color: 'var(--c-edge-2)' }}>Business detail</div>
+                    <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.5 }}>{personalization.business_detail}</p>
                   </div>
                 )}
                 {personalization.relevant_observation && (
                   <div>
-                    <div className="text-xs mb-0.5" style={{ color: 'var(--c-edge-2)', fontFamily: 'DM Mono, monospace' }}>Website observation</div>
-                    <p className="text-xs" style={{ color: '#64748b', lineHeight: 1.5 }}>{personalization.relevant_observation}</p>
+                    <div className="text-xs mb-0.5" style={{ color: 'var(--c-edge-2)' }}>Website observation</div>
+                    <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.5 }}>{personalization.relevant_observation}</p>
                   </div>
                 )}
                 {personalization.business_opportunity && (
                   <div>
-                    <div className="text-xs mb-0.5" style={{ color: 'var(--c-edge-2)', fontFamily: 'DM Mono, monospace' }}>Opportunity highlighted</div>
-                    <p className="text-xs" style={{ color: '#64748b', lineHeight: 1.5 }}>{personalization.business_opportunity}</p>
+                    <div className="text-xs mb-0.5" style={{ color: 'var(--c-edge-2)' }}>Opportunity highlighted</div>
+                    <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.5 }}>{personalization.business_opportunity}</p>
                   </div>
                 )}
                 {personalization.evidence_used && personalization.evidence_used.length > 0 && (
                   <div>
-                    <div className="text-xs mb-1" style={{ color: 'var(--c-edge-2)', fontFamily: 'DM Mono, monospace' }}>Evidence used</div>
+                    <div className="text-xs mb-1" style={{ color: 'var(--c-edge-2)' }}>Evidence used</div>
                     <div className="flex flex-wrap gap-1">
                       {personalization.evidence_used.map((e, i) => (
                         <span key={i} className="text-xs px-2 py-0.5 rounded" style={{ background: 'var(--c-surface-3)', color: 'var(--c-primary-l)', border: '1px solid var(--c-edge-2)' }}>{e}</span>
@@ -1081,7 +1081,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
               placeholder={hasAI ? 'Click Generate Message above to create a personalized draft...' : 'Run AI analysis first, then generate a personalized message.'}
               rows={8}
               className="w-full text-sm rounded p-4 outline-none resize-y"
-              style={{ background: 'var(--c-bg)', border: '1px solid var(--c-edge)', color: 'var(--c-ink)', lineHeight: 1.7, fontFamily: 'Inter, sans-serif' }}
+              style={{ background: 'var(--c-bg)', border: '1px solid var(--c-edge)', color: 'var(--c-ink)', lineHeight: 1.7 }}
             />
 
             {/* Why this message? */}
@@ -1097,10 +1097,10 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                 </button>
                 {showWhyMessage && (
                   <div className="mt-2 rounded-md p-3" style={{ background: 'var(--c-bg)', border: '1px solid var(--c-edge)' }}>
-                    <p className="text-xs" style={{ color: '#64748b', lineHeight: 1.7 }}>{personalization.personalization_reason}</p>
+                    <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.7 }}>{personalization.personalization_reason}</p>
                     {personalization.recommended_angle && (
                       <p className="text-xs mt-2" style={{ color: 'var(--c-ink-3)', lineHeight: 1.6 }}>
-                        <span style={{ color: 'var(--c-edge-2)', fontFamily: 'DM Mono, monospace' }}>Angle: </span>
+                        <span style={{ color: 'var(--c-edge-2)' }}>Angle: </span>
                         {personalization.recommended_angle}
                       </p>
                     )}
@@ -1125,7 +1125,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                   setTimeout(() => setCopiedOutreach(null), 2000)
                 }}
                 className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md"
-                style={{ background: 'var(--c-surface-2)', color: copiedOutreach === 'compose' ? 'var(--t-green)' : '#64748b', border: '1px solid var(--c-edge)' }}
+                style={{ background: 'var(--c-surface-2)', color: copiedOutreach === 'compose' ? 'var(--t-green)' : 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
               >
                 {copiedOutreach === 'compose' ? <CheckCheck size={11} /> : <Copy size={11} />}
                 {copiedOutreach === 'compose' ? 'Copied' : 'Copy'}
@@ -1171,11 +1171,11 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
           {/* Outreach history */}
           {loadingOutreach ? (
             <div className="flex items-center justify-center py-8">
-              <div className="rounded-full animate-spin" style={{ width: 20, height: 20, border: '2px solid var(--c-edge)', borderTopColor: '#f97316' }} />
+              <div className="rounded-full animate-spin" style={{ width: 20, height: 20, border: '2px solid var(--c-edge)', borderTopColor: 'var(--c-primary-l)' }} />
             </div>
           ) : outreachRecords.length > 0 ? (
             <div style={SECTION}>
-              <h3 className="text-xs font-medium mb-3" style={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}>
+              <h3 className="text-xs font-medium mb-3" style={{ color: 'var(--c-ink-2)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 History ({outreachRecords.length})
               </h3>
               <div className="space-y-2">
@@ -1189,11 +1189,11 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                       <span className="text-xs" style={{ color: 'var(--c-ink-3)' }}>
                         {CHANNELS.find((c) => c.value === rec.channel)?.emoji}
                       </span>
-                      <span className="text-xs font-medium" style={{ color: '#64748b' }}>{rec.channel}</span>
+                      <span className="text-xs font-medium" style={{ color: 'var(--c-ink-2)' }}>{rec.channel}</span>
                       <span className="text-xs" style={{ color: 'var(--c-edge-2)' }}>·</span>
                       <span className="text-xs flex-1 truncate" style={{ color: 'var(--c-ink-3)' }}>{rec.content.slice(0, 60)}...</span>
                       <StatusChip status={rec.status} />
-                      <span className="text-xs" style={{ color: 'var(--c-edge-2)', fontFamily: 'DM Mono, monospace' }}>
+                      <span className="text-xs" style={{ color: 'var(--c-edge-2)' }}>
                         {new Date(rec.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}
                       </span>
                       {expandedRecord === rec.id ? <ChevronUp size={12} style={{ color: 'var(--c-ink-3)' }} /> : <ChevronDown size={12} style={{ color: 'var(--c-ink-3)' }} />}
@@ -1205,7 +1205,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                           <button
                             onClick={() => copyOutreachRecord(rec.content, rec.id)}
                             className="flex items-center gap-1 text-xs px-2.5 py-1 rounded"
-                            style={{ background: 'var(--c-surface-2)', color: copiedOutreach === rec.id ? 'var(--t-green)' : '#64748b', border: '1px solid var(--c-edge)' }}
+                            style={{ background: 'var(--c-surface-2)', color: copiedOutreach === rec.id ? 'var(--t-green)' : 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
                           >
                             {copiedOutreach === rec.id ? <CheckCheck size={10} /> : <Copy size={10} />}
                             {copiedOutreach === rec.id ? 'Copied' : 'Copy'}
@@ -1222,7 +1222,7 @@ export default function LeadProfile({ lead, onBack, onUpdateStatus, onLeadUpdate
                             </button>
                           )}
                           {rec.sent_at && (
-                            <span className="text-xs flex items-center gap-1" style={{ color: 'var(--c-ink-3)', fontFamily: 'DM Mono, monospace' }}>
+                            <span className="text-xs flex items-center gap-1" style={{ color: 'var(--c-ink-3)' }}>
                               Sent {new Date(rec.sent_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                             </span>
                           )}
