@@ -35,7 +35,7 @@ const STATUS_META: Record<
   { color: string; bg: string }
 > = {
   DRAFT: {
-    color: '#64748b',
+    color: 'var(--c-ink-2)',
     bg: 'var(--c-edge)',
   },
   SENT: {
@@ -140,7 +140,7 @@ export default function ProposalsView({
       <div className="flex items-center justify-between">
         <div>
           <h1
-            className="text-xl font-semibold"
+            className="text-2xl font-medium"
             style={{
               color: 'var(--c-ink)',
               letterSpacing:
@@ -153,7 +153,7 @@ export default function ProposalsView({
           <p
             className="text-sm mt-0.5"
             style={{
-              color: '#64748b',
+              color: 'var(--c-ink-2)',
             }}
           >
             {proposals.length} proposals ·{' '}
@@ -167,7 +167,7 @@ export default function ProposalsView({
           }
           className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-md font-medium"
           style={{
-            background: '#f97316',
+            background: 'var(--c-primary-l)',
             color: '#fff',
           }}
         >
@@ -192,7 +192,7 @@ export default function ProposalsView({
           {
             label: 'Won',
             value: fmt(won),
-            accent: '#10b981',
+            accent: 'var(--t-green)',
           },
           {
             label: 'Pending',
@@ -242,20 +242,20 @@ export default function ProposalsView({
               style={{
                 color: 'var(--c-ink-3)',
                 fontFamily:
-                  'DM Mono, monospace',
+                  'Inter, system-ui, sans-serif',
               }}
             >
               {s.label}
             </div>
 
             <div
-              className="text-xl font-semibold"
+              className="text-2xl font-medium"
               style={{
                 color:
                   s.accent ??
                   'var(--c-ink)',
                 fontFamily:
-                  'DM Mono, monospace',
+                  'Inter, system-ui, sans-serif',
                 letterSpacing:
                   '-0.02em',
               }}
@@ -299,7 +299,7 @@ export default function ProposalsView({
               <p
                 className="text-sm font-medium"
                 style={{
-                  color: '#64748b',
+                  color: 'var(--c-ink-2)',
                 }}
               >
                 No proposals yet
@@ -350,7 +350,7 @@ export default function ProposalsView({
                   style={{
                     color: 'var(--c-ink-3)',
                     fontFamily:
-                      'DM Mono, monospace',
+                      'Inter, system-ui, sans-serif',
                   }}
                 >
                   {h}
@@ -430,9 +430,9 @@ export default function ProposalsView({
                       className="text-sm font-semibold"
                       style={{
                         color:
-                          '#10b981',
+                          'var(--t-green)',
                         fontFamily:
-                          'DM Mono, monospace',
+                          'Inter, system-ui, sans-serif',
                       }}
                     >
                       {fmt(p.price)}
@@ -444,7 +444,7 @@ export default function ProposalsView({
                       className="text-xs"
                       style={{
                         color:
-                          '#64748b',
+                          'var(--c-ink-2)',
                       }}
                     >
                       {p.payment_terms}
@@ -460,7 +460,7 @@ export default function ProposalsView({
                         color:
                           meta.color,
                         fontFamily:
-                          'DM Mono, monospace',
+                          'Inter, system-ui, sans-serif',
                       }}
                     >
                       {p.status}
@@ -474,7 +474,7 @@ export default function ProposalsView({
                         color:
                           'var(--c-ink-3)',
                         fontFamily:
-                          'DM Mono, monospace',
+                          'Inter, system-ui, sans-serif',
                       }}
                     >
                       {new Date(
@@ -496,7 +496,7 @@ export default function ProposalsView({
                         color:
                           'var(--c-ink-3)',
                         fontFamily:
-                          'DM Mono, monospace',
+                          'Inter, system-ui, sans-serif',
                       }}
                     >
                       {p.sent_at
@@ -530,7 +530,7 @@ export default function ProposalsView({
             letterSpacing:
               '0.06em',
             fontFamily:
-              'DM Mono, monospace',
+              'Inter, system-ui, sans-serif',
           }}
         >
           Package Reference
@@ -588,9 +588,9 @@ export default function ProposalsView({
                   className="font-semibold"
                   style={{
                     color:
-                      '#10b981',
+                      'var(--t-green)',
                     fontFamily:
-                      'DM Mono, monospace',
+                      'Inter, system-ui, sans-serif',
                     fontSize: 15,
                   }}
                 >
@@ -601,9 +601,9 @@ export default function ProposalsView({
               <div
                 className="text-xs mb-2"
                 style={{
-                  color: '#64748b',
+                  color: 'var(--c-ink-2)',
                   fontFamily:
-                    'DM Mono, monospace',
+                    'Inter, system-ui, sans-serif',
                 }}
               >
                 {pkg.timeline}
