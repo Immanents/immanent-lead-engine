@@ -38,7 +38,7 @@ const INPUT_STYLE = {
   fontSize: 13,
   outline: 'none',
   width: '100%',
-  fontFamily: 'Inter, sans-serif',
+
 }
 
 const LABEL_STYLE = {
@@ -46,7 +46,7 @@ const LABEL_STYLE = {
   fontSize: 11,
   color: 'var(--c-ink-3)',
   marginBottom: 4,
-  fontFamily: 'DM Mono, monospace',
+
 }
 
 export default function AddLeadModal({ onClose, onAdd, campaigns }: AddLeadModalProps) {
@@ -119,7 +119,7 @@ export default function AddLeadModal({ onClose, onAdd, campaigns }: AddLeadModal
         <form onSubmit={handleSubmit} className="px-5 py-4 space-y-4">
           <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
             <div style={{ gridColumn: '1 / -1' }}>
-              <div className="text-xs mb-2" style={{ color: 'var(--c-primary-l)', fontFamily: 'DM Mono, monospace', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+              <div className="text-xs mb-2" style={{ color: 'var(--c-primary-l)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                 Online presence — required, type nil if not available
               </div>
               <div className="grid gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
@@ -143,7 +143,7 @@ export default function AddLeadModal({ onClose, onAdd, campaigns }: AddLeadModal
                           background: cleanChannel(form[f.key]) === undefined && form[f.key] ? 'var(--t-orange-bg)' : 'var(--c-surface-2)',
                           color: cleanChannel(form[f.key]) === undefined && form[f.key] ? 'var(--c-primary-l)' : 'var(--c-ink-3)',
                           border: '1px solid var(--c-edge)',
-                          fontFamily: 'DM Mono, monospace',
+
                           cursor: 'pointer',
                         }}
                       >
@@ -269,7 +269,7 @@ export default function AddLeadModal({ onClose, onAdd, campaigns }: AddLeadModal
             <button
               type="submit"
               className="text-sm px-4 py-2 rounded-md font-medium"
-              style={{ background: '#f97316', color: '#fff' }}
+              style={{ background: 'var(--c-primary-l)', color: '#fff' }}
             >
               Add Lead
             </button>
@@ -277,7 +277,7 @@ export default function AddLeadModal({ onClose, onAdd, campaigns }: AddLeadModal
               type="button"
               onClick={onClose}
               className="text-sm px-4 py-2 rounded-md"
-              style={{ background: 'var(--c-surface-2)', color: '#64748b', border: '1px solid var(--c-edge)' }}
+              style={{ background: 'var(--c-surface-2)', color: 'var(--c-ink-2)', border: '1px solid var(--c-edge)' }}
             >
               Cancel
             </button>
