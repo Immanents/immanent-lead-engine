@@ -11,10 +11,10 @@ export default function DiscoverView() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-semibold" style={{ color: 'var(--c-ink)', letterSpacing: '-0.02em' }}>
+        <h1 className="text-2xl font-medium" style={{ color: 'var(--c-ink)', letterSpacing: '0' }}>
           Discover
         </h1>
-        <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>
+        <p className="text-sm mt-0.5" style={{ color: 'var(--c-ink-2)' }}>
           Find new leads manually. V1 discovery is intentionally simple — no external scraping.
         </p>
       </div>
@@ -25,7 +25,7 @@ export default function DiscoverView() {
       >
         <h2
           className="text-xs font-medium mb-4"
-          style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}
+          style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}
         >
           Discovery Workflow
         </h2>
@@ -40,7 +40,7 @@ export default function DiscoverView() {
             <li key={i} className="flex items-start gap-3">
               <span
                 className="flex-shrink-0 flex items-center justify-center rounded-full text-xs font-mono font-medium"
-                style={{ width: 22, height: 22, background: 'var(--c-surface-2)', color: '#f97316', marginTop: 1 }}
+                style={{ width: 22, height: 22, background: 'var(--c-surface-2)', color: 'var(--c-primary-l)', marginTop: 1 }}
               >
                 {i + 1}
               </span>
@@ -58,12 +58,12 @@ export default function DiscoverView() {
             style={{ background: 'var(--c-surface)', border: '1px solid var(--c-edge)' }}
           >
             <div className="flex items-center gap-2 mb-2">
-              <s.icon size={15} style={{ color: '#f97316' }} />
+              <s.icon size={15} style={{ color: 'var(--c-primary-l)' }} />
               <h3 className="text-sm font-medium" style={{ color: 'var(--c-ink)' }}>
                 {s.label}
               </h3>
             </div>
-            <p className="text-xs" style={{ color: '#64748b', lineHeight: 1.6 }}>{s.desc}</p>
+            <p className="text-xs" style={{ color: 'var(--c-ink-2)', lineHeight: 1.6 }}>{s.desc}</p>
           </div>
         ))}
       </div>
@@ -74,7 +74,7 @@ export default function DiscoverView() {
       >
         <h2
           className="text-xs font-medium mb-3"
-          style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'DM Mono, monospace' }}
+          style={{ color: 'var(--c-ink-3)', textTransform: 'uppercase', letterSpacing: '0.06em' }}
         >
           What makes a High Priority lead?
         </h2>
@@ -90,8 +90,8 @@ export default function DiscoverView() {
             { signal: 'Clear contact information', pts: '+5' },
           ].map((row) => (
             <div key={row.signal} className="flex items-center justify-between py-1.5" style={{ borderBottom: '1px solid var(--c-surface-2)' }}>
-              <span className="text-xs" style={{ color: '#64748b' }}>{row.signal}</span>
-              <span className="text-xs font-medium" style={{ color: '#10b981', fontFamily: 'DM Mono, monospace' }}>{row.pts}</span>
+              <span className="text-xs" style={{ color: 'var(--c-ink-2)' }}>{row.signal}</span>
+              <span className="text-xs font-medium" style={{ color: 'var(--t-green)' }}>{row.pts}</span>
             </div>
           ))}
         </div>
